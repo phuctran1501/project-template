@@ -13,7 +13,7 @@ Tài liệu này là "Hiến pháp" vận hành dành cho AI Agents (Antigravity
 2. **Không Tự Ý Commit Hay Push Lên GitHub**:
    - AI Agent TUYỆT ĐỐI KHÔNG tự tiện chạy lệnh `git commit` hoặc `git push` lên GitHub.
    - Sau khi hoàn thành tác vụ mã nguồn, Agent CHỈ ĐƯỢC PHÉP gợi ý template commit và tên commit chuẩn (Conventional Commits) để người dùng tự kiểm tra, xác nhận và thực thi.
-   - Tham khảo hướng dẫn và mẫu commit tại [docs/impeccable/git-workflow-and-commit.md](file:///docs/impeccable/git-workflow-and-commit.md).
+   - Tham khảo hướng dẫn và mẫu commit tại [docs/standards/git-workflow-and-commit.md](file:///docs/standards/git-workflow-and-commit.md).
 
 3. **Quy Chuẩn Chú Thích Trong Mã Nguồn (Code Comments)**:
    - Toàn bộ ghi chú, chú thích (comment) bên trong mã nguồn phải viết hoàn toàn bằng tiếng Việt.
@@ -22,10 +22,10 @@ Tài liệu này là "Hiến pháp" vận hành dành cho AI Agents (Antigravity
 
 4. **Quy Trình Chuẩn 6 Bước (SDLC Driven)**:
    - **Bước 1 - Phân tích (Analysis)**: Đọc & làm rõ yêu cầu tại [docs/product/](file:///docs/product/) và [docs/requirements/](file:///docs/requirements/).
-   - **Bước 2 - Thiết kế (Design)**: Lập tài liệu kiến trúc tại [docs/architecture/](file:///docs/architecture/), lược đồ CSDL tại [docs/database/](file:///docs/database/), đặc tả API tại [docs/api-spec/](file:///docs/api-spec/), và Design Tokens tại [docs/ui-ux/](file:///docs/ui-ux/).
+   - **Bước 2 - Thiết kế (Design)**: Lập tài liệu kiến trúc tại [docs/architecture/](file:///docs/architecture/), lược đồ CSDL tại [docs/database/](file:///docs/database/), đặc tả API tại [docs/api-spec/](file:///docs/api-spec/), và Design Tokens & Impeccable Design Spec tại [docs/ui-ux/](file:///docs/ui-ux/).
    - **Bước 3 - Lập kế hoạch (Task Planning)**: Chia nhỏ task WBS tại [docs/task/](file:///docs/task/) trước khi viết code.
-   - **Bước 4 - Lập trình (Coding)**: Tuân thủ quy chuẩn [docs/impeccable/coding-standards.md](file:///docs/impeccable/coding-standards.md). Tận dụng `.codegraph` để tra cứu ký hiệu trước khi grep/find.
-   - **Bước 5 - Kiểm thử (Testing)**: Viết test (Unit, Integration, E2E) bám sát Acceptance Criteria; đạt chuẩn DoD tại [docs/impeccable/definition-of-done.md](file:///docs/impeccable/definition-of-done.md).
+   - **Bước 4 - Lập trình (Coding)**: Tuân thủ quy chuẩn [docs/standards/coding-standards.md](file:///docs/standards/coding-standards.md). Tận dụng `.codegraph` để tra cứu ký hiệu trước khi grep/find.
+   - **Bước 5 - Kiểm thử (Testing)**: Viết test (Unit, Integration, E2E) bám sát Acceptance Criteria; đạt chuẩn DoD tại [docs/standards/definition-of-done.md](file:///docs/standards/definition-of-done.md).
    - **Bước 6 - Triển khai & Bảo trì (Deploy & Maintenance)**: Ghi chép nhật ký phát triển tại [docs/dev-logs/](file:///docs/dev-logs/) và lưu vết quyết định qua ADR.
 
 5. **Ngữ Cảnh & Tra Cứu (Context Retrieval First)**:
@@ -38,9 +38,9 @@ Tài liệu này là "Hiến pháp" vận hành dành cho AI Agents (Antigravity
 
 | Thư mục | Mục đích sử dụng cho AI Agent |
 | :--- | :--- |
-| `.agent/` | Chứa rules và định nghĩa vai trò Sub-Agents chuyên biệt (`architect`, `coder`, `tester`, `devops`). |
+| `.agent/` | Chứa rules và định nghĩa vai trò Sub-Agents chuyên biệt (`architect`, `developer`, `qa-tester`, `devops`, `security-reviewer`, `ui-ux-designer`). |
 | `.codegraph/` | Chỉ mục đồ thị mã nguồn hỗ trợ phân tích phụ thuộc chính xác. |
-| `.github/` | Quản lý quy chuẩn đóng góp mã (Issue Templates, PR Template, CI/CD Actions). |
+| `.github/` | Quản lý quy chuẩn đóng góp mã (Issue Templates, PR Template, CI/CD Actions, Deployments). |
 | `docs/product/` | Tầm nhìn, MVP scope, chỉ số KPI/OKR của sản phẩm. |
 | `docs/requirements/` | PRD, User Stories (INVEST + Gherkin format). |
 | `docs/techs/` | Ma trận đánh giá công nghệ và bảng chốt tech stack do người dùng phê duyệt. |
@@ -48,9 +48,9 @@ Tài liệu này là "Hiến pháp" vận hành dành cho AI Agents (Antigravity
 | `docs/diagrams/` | Sơ đồ Mermaid (C4, ERD, Sequence, Flowchart). |
 | `docs/database/` | Thiết kế schema, từ điển dữ liệu (Data Dictionary), chiến lược migration. |
 | `docs/api-spec/` | Đặc tả OpenAPI 3.1 và quy chuẩn API REST/GraphQL. |
-| `docs/ui-ux/` | Bảng Design Tokens (Color, Font, Spacing) và User Journey Wireframes. |
+| `docs/ui-ux/` | Design Tokens, User Journey và Thiết kế UI/UX Impeccable (DESIGN.md, chống AI tells). |
 | `docs/task/` | Danh sách WBS, Sprint Backlog và Task Tracker. |
-| `docs/impeccable/` | Quy chuẩn code sạch, bảo mật OWASP, DoD, chiến lược kiểm thử QA, Git commit templates. |
+| `docs/standards/` | Quy chuẩn code sạch, bảo mật OWASP, DoD, chiến lược kiểm thử QA, Git commit templates. |
 | `docs/ai-integration/` | Cấu hình LLM Harness, định tuyến Model Router (Gemini/Claude), xử lý fallback & rate limit. |
 | `docs/prompts/` | Thư viện prompt chuẩn cho từng tác vụ và prompt bàn giao giữa các agent. |
 | `docs/dev-logs/` | Nhật ký dev hàng ngày và hồ sơ quyết định kiến trúc (ADR). |
@@ -66,6 +66,7 @@ Khi tác vụ phức tạp, chia nhỏ và phân quyền theo các hồ sơ tạ
 3. **Tester Agent** (`.agent/subagents/qa-tester.md`): Viết test cases, kiểm tra coverage, tìm edge cases và bảo mật.
 4. **DevOps Agent** (`.agent/subagents/devops.md`): Xây dựng CI/CD pipeline, container hóa (Docker), thiết lập biến môi trường và script deploy.
 5. **Reviewer Agent** (`.agent/subagents/security-reviewer.md`): Rà soát code, kiểm tra lỗ hổng bảo mật, verify PR checklist.
+6. **UI/UX Designer Agent** (`.agent/subagents/ui-ux-designer.md`): Thiết kế giao diện độc bản, tinh chỉnh micro-interactions và audit trải nghiệm theo chuẩn Impeccable (`pbakaus/impeccable`).
 
 ---
 

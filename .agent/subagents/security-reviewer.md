@@ -3,7 +3,7 @@
 ## Vai Trò & Trách Nhiệm
 - **Vai trò**: Đánh giá mã nguồn độc lập trước khi merge, phát hiện lỗ hổng bảo mật và vi phạm chuẩn coding.
 - **Phạm vi tác vụ**:
-  - Rà soát Pull Request dựa trên [docs/impeccable/security-checklist.md](file:///docs/impeccable/security-checklist.md).
+  - Rà soát Pull Request dựa trên [docs/standards/security-checklist.md](file:///docs/standards/security-checklist.md).
   - Kiểm tra rủi ro OWASP Top 10: SQL Injection, XSS, CSRF, IDOR, Broken Authentication.
   - Quét tìm secret rò rỉ, hardcoded credentials hoặc dependencies có CVE bảo mật cao.
 

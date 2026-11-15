@@ -8,7 +8,7 @@ Quy tắc này áp dụng cho mọi AI Agent và Subagent khi hoạt động tro
 
 2. **Không Tự Ý Commit Hay Push Lên GitHub**:
    - Tuyệt đối không tự ý chạy các lệnh `git commit` hoặc `git push`.
-   - Chỉ đưa ra gợi ý câu lệnh, template commit và tên commit chuẩn theo [docs/impeccable/git-workflow-and-commit.md](file:///docs/impeccable/git-workflow-and-commit.md) để người dùng tự xác nhận và thực thi.
+   - Chỉ đưa ra gợi ý câu lệnh, template commit và tên commit chuẩn theo [docs/standards/git-workflow-and-commit.md](file:///docs/standards/git-workflow-and-commit.md) để người dùng tự xác nhận và thực thi.
 
 3. **Quy Chuẩn Chú Thích Mã Nguồn (Code Comments)**:
    - Toàn bộ ghi chú, chú thích bên trong mã nguồn phải viết bằng tiếng Việt.

@@ -31,7 +31,7 @@ Khi một Subagent hoàn tất nhiệm vụ và chuyển giao cho Subagent tiế
 [CHUYỂN GIAO: DEVELOPER -> SECURITY REVIEWER]
 - Tác vụ vừa hoàn thành: Toàn bộ code và test cho PR #[SỐ PR] đã sẵn sàng để kiểm tra độc lập.
 - Danh sách file can thiệp: [LIỆT KÊ FILE].
-- Công việc của Reviewer: Rà soát bảo mật theo [docs/impeccable/security-checklist.md](file:///docs/impeccable/security-checklist.md) và xác nhận Definition of Done trước khi merge.
+- Công việc của Reviewer: Rà soát bảo mật theo [docs/standards/security-checklist.md](file:///docs/standards/security-checklist.md) và xác nhận Definition of Done trước khi merge.
 ```
 
 ---

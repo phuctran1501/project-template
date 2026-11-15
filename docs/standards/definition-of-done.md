@@ -5,7 +5,7 @@ Một Task hoặc Pull Request chỉ được tính là **DONE** khi đáp ứng
 ---
 
 ## 1. Về Mặt Mã Nguồn (Code Quality)
-- [ ] Mã nguồn bám sát [docs/impeccable/coding-standards.md](file:///docs/impeccable/coding-standards.md).
+- [ ] Mã nguồn bám sát [docs/standards/coding-standards.md](file:///docs/standards/coding-standards.md).
 - [ ] Đã chạy linter và formatter (vd: ESLint/Prettier, Ruff, Golangci-lint) không còn cảnh báo hoặc lỗi.
 - [ ] Không có "Code Smells", không có hardcoded URLs, secret keys hoặc Magic Numbers.
 - [ ] Kiểm tra tĩnh (Static Type Check) không có lỗi (`tsc --noEmit`, `mypy`, v.v.).
@@ -21,7 +21,7 @@ Một Task hoặc Pull Request chỉ được tính là **DONE** khi đáp ứng
 ---
 
 ## 3. Về Mặt Bảo Mật & Hiệu Năng (Security & Performance)
-- [ ] Đã rà soát theo [docs/impeccable/security-checklist.md](file:///docs/impeccable/security-checklist.md).
+- [ ] Đã rà soát theo [docs/standards/security-checklist.md](file:///docs/standards/security-checklist.md).
 - [ ] Không có truy vấn CSDL gây nghẽn (N+1 query problem).
 - [ ] Đã thêm đánh chỉ mục (Index) nếu bổ sung trường tìm kiếm hoặc foreign key mới.
 
