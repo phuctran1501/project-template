@@ -1,0 +1,53 @@
+# ==============================================================================
+# Tep cau hinh quy chuan dinh dang ma nguon EditorConfig
+# Ap dung dong nhat cho moi trinh soan thao va he dieu hanh
+# ==============================================================================
+
+root = true
+
+# Quy chuan mac dinh cho moi tep tin
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+
+# Quy chuan cho ma nguon Python
+[*.py]
+indent_style = space
+indent_size = 4
+
+# Quy chuan cho ma nguon Golang
+[*.go]
+indent_style = tab
+indent_size = 4
+
+# Quy chuan cho ma nguon C Sharp va Dotnet
+[*.{cs,csx,props,targets}]
+indent_style = space
+indent_size = 4
+
+# Quy chuan cho tep tai lieu Markdown
+[*.md]
+trim_trailing_whitespace = false
+indent_style = space
+indent_size = 2
+
+# Quy chuan cho tep cau hinh YAML va JSON
+[*.{yml,yaml,json}]
+indent_style = space
+indent_size = 2
+
+# Quy chuan cho kịch ban shell script
+[*.{sh,bash}]
+end_of_line = lf
+indent_style = space
+indent_size = 2
+
+# Quy chuan cho kịch ban PowerShell
+[*.{ps1,psm1,psd1}]
+end_of_line = crlf
+indent_style = space
+indent_size = 4

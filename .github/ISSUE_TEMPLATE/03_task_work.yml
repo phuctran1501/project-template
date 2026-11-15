@@ -1,0 +1,31 @@
+name: "📋 Nhiệm vụ kỹ thuật (Technical Task / WBS Item)"
+description: Tạo thẻ công việc kỹ thuật, refactor, hoặc nhiệm vụ con thuộc Sprint
+title: "task: <nội dung công việc>"
+labels: ["task"]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: Mục tiêu nhiệm vụ (Goal)
+      description: Mô tả chi tiết việc cần làm và lý do cần thực hiện.
+      placeholder: "Ví dụ: Cấu hình Redis Cache cho endpoint lấy danh sách sản phẩm nổi bật..."
+    validations:
+      required: true
+  - type: textarea
+    id: technical_details
+    attributes:
+      label: Hướng dẫn kỹ thuật / Giải pháp (Technical Approach)
+      placeholder: "Các module, file, hoặc interface cần can thiệp..."
+    validations:
+      required: false
+  - type: textarea
+    id: subtasks
+    attributes:
+      label: Danh sách việc cần làm (Checklist)
+      value: |
+        - [ ] Bước 1: Khai báo interface/schema
+        - [ ] Bước 2: Hiện thực logic nghiệp vụ
+        - [ ] Bước 3: Viết Unit / Integration test
+        - [ ] Bước 4: Cập nhật tài liệu docs/
+    validations:
+      required: true

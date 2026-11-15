@@ -1,0 +1,46 @@
+name: "✨ Yêu cầu tính năng (Feature Request)"
+description: Đề xuất một tính năng hoặc cải tiến mới cho hệ thống
+title: "feat: <mô tả ngắn về tính năng>"
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Cảm ơn bạn đã đóng góp đề xuất! Vui lòng điền đầy đủ các mục dưới đây để nhóm phát triển và AI Agent dễ dàng phân tích và lập kế hoạch.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Vấn đề cần giải quyết (Problem Statement)
+      description: Tính năng này giải quyết nỗi đau hoặc vấn đề gì của người dùng?
+      placeholder: "Ví dụ: Người dùng hiện tại không thể lọc danh sách sản phẩm theo khoảng giá..."
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Giải pháp đề xuất (Proposed Solution)
+      description: Mô tả cách giải quyết hoặc hành vi mong đợi của tính năng.
+      placeholder: "Thêm bộ lọc đa tiêu chí gồm slider giá và dropdown danh mục..."
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: Tiêu chí chấp nhận (Acceptance Criteria - Gherkin / Checklist)
+      description: Các điều kiện cụ thể để tính năng được coi là hoàn thành.
+      value: |
+        - [ ] Cho phép người dùng chọn mức giá từ min đến max.
+        - [ ] Kết quả tự động cập nhật hoặc bấm nút 'Áp dụng'.
+        - [ ] Có thông báo khi không có sản phẩm nào khớp bộ lọc.
+    validations:
+      required: true
+  - type: checkboxes
+    id: impact_scope
+    attributes:
+      label: Phạm vi ảnh hưởng (Impact Scope)
+      options:
+        - label: Frontend / Giao diện người dùng
+        - label: Backend / API Services
+        - label: Cơ sở dữ liệu (Database Schema / Migration)
+        - label: AI / LLM Integration
+        - label: Hạ tầng / DevOps / CI-CD

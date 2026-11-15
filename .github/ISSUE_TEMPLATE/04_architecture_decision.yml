@@ -1,0 +1,34 @@
+name: "🏛️ Quyết định kiến trúc (Architecture RFC / Decision)"
+description: Đề xuất thay đổi kiến trúc hệ thống, chọn thư viện/công nghệ mới (kèm theo ADR)
+title: "rfc: <chủ đề quyết định kiến trúc>"
+labels: ["architecture", "rfc"]
+body:
+  - type: textarea
+    id: context
+    attributes:
+      label: Bối cảnh & Vấn đề (Context & Problem)
+      description: Tại sao chúng ta cần đưa ra quyết định này lúc này?
+      placeholder: "Ví dụ: Tải lượng query tăng 500%, CSDL quan hệ hiện tại bị bottleneck..."
+    validations:
+      required: true
+  - type: textarea
+    id: options_considered
+    attributes:
+      label: Các phương án cân nhắc (Options Considered)
+      placeholder: |
+        - Phương án A: Thêm Read Replica + Redis Cache (Ưu/Nhược điểm)
+        - Phương án B: Chuyển sang NoSQL/Elasticsearch (Ưu/Nhược điểm)
+    validations:
+      required: true
+  - type: textarea
+    id: proposed_decision
+    attributes:
+      label: Quyết định đề xuất (Proposed Decision)
+      placeholder: "Lựa chọn phương án nào và lý do chính..."
+    validations:
+      required: true
+  - type: input
+    id: adr_link
+    attributes:
+      label: Đường dẫn file ADR liên kết
+      placeholder: "docs/dev-logs/adr/0002-ten-quyet-dinh.md"

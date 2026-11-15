@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json.schemastore.org/codegraph.json",
+  "version": "1.0",
+  "include": [
+    "src/**/*",
+    "lib/**/*",
+    "app/**/*",
+    "packages/**/*",
+    "docs/**/*"
+  ],
+  "exclude": [
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/build/**",
+    "**/.git/**",
+    "**/vendor/**",
+    "**/venv/**",
+    "**/__pycache__/**",
+    "**/target/**",
+    "**/bin/**",
+    "**/obj/**"
+  ]
+}

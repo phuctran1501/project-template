@@ -1,0 +1,54 @@
+name: "🐛 Báo cáo lỗi (Bug Report)"
+description: Báo cáo một sự cố, lỗi runtime hoặc hành vi không mong đợi
+title: "fix: <mô tả ngắn về lỗi>"
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Vui lòng cung cấp các bước tái hiện lỗi chi tiết để hỗ trợ debug nhanh nhất.
+  - type: textarea
+    id: summary
+    attributes:
+      label: Mô tả tóm tắt lỗi (Summary)
+      description: Lỗi gì đã xảy ra?
+      placeholder: "Ví dụ: Lỗi 500 khi người dùng bấm thanh toán đơn hàng có voucher giảm giá..."
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction_steps
+    attributes:
+      label: Các bước tái hiện (Steps to Reproduce)
+      description: Ghi lại từng bước rõ ràng.
+      value: |
+        1. Đi tới trang '...'
+        2. Bấm vào nút '...'
+        3. Điền dữ liệu '...'
+        4. Quan sát thấy lỗi xuất hiện
+    validations:
+      required: true
+  - type: textarea
+    id: expected_vs_actual
+    attributes:
+      label: Kỳ vọng so với Thực tế (Expected vs Actual)
+      placeholder: |
+        - Kỳ vọng: Hệ thống thông báo thành công và chuyển sang trang xác nhận.
+        - Thực tế: Màn hình báo lỗi "Internal Server Error" và trừ điểm thưởng 2 lần.
+    validations:
+      required: true
+  - type: textarea
+    id: logs_or_screenshots
+    attributes:
+      label: Logs / Stacktrace / Ảnh chụp màn hình
+      placeholder: "Dán đoạn log terminal, network payload hoặc link ảnh tại đây..."
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Mức độ nghiêm trọng (Severity)
+      options:
+        - "Thấp (Trivial/Cosmetic)"
+        - "Trung bình (Minor - Có cách tránh tạm thời)"
+        - "Cao (Major - Chức năng chính bị hỏng)"
+        - "Khẩn cấp (Blocker/Critical - Sập hệ thống/Mất dữ liệu)"
+    validations:
+      required: true
