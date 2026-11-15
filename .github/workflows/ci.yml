@@ -19,11 +19,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      # Su dung cong cu Gitleaks de phat hien ma khoa bi mat hoac token commit nham
+      # Su dung cong cu Gitleaks kem tep cau hinh .gitleaks.toml de bo qua tep mau
       - name: Kiem tra ro ri bi mat qua Gitleaks
         uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_CONFIG: .gitleaks.toml
         continue-on-error: true
 
   # ============================================================================

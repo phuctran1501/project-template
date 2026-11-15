@@ -44,7 +44,7 @@ Tài liệu này là "Hiến pháp" vận hành dành cho AI Agents (Antigravity
 | `docs/product/` | Tầm nhìn, MVP scope, chỉ số KPI/OKR của sản phẩm. |
 | `docs/requirements/` | PRD, User Stories (INVEST + Gherkin format). |
 | `docs/techs/` | Ma trận đánh giá công nghệ và bảng chốt tech stack do người dùng phê duyệt. |
-| `docs/architecture/` | Kiến trúc hệ thống, phân rã module, ma trận phân quyền RBAC, yêu cầu phi chức năng (NFR). |
+| `docs/architecture/` | Kiến trúc hệ thống, phân rã module, ma trận phân quyền RBAC, Deployments & link demo phỏng vấn, NFR. |
 | `docs/diagrams/` | Sơ đồ Mermaid (C4, ERD, Sequence, Flowchart). |
 | `docs/database/` | Thiết kế schema, từ điển dữ liệu (Data Dictionary), chiến lược migration. |
 | `docs/api-spec/` | Đặc tả OpenAPI 3.1 và quy chuẩn API REST/GraphQL. |

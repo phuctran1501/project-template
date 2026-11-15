@@ -23,25 +23,26 @@ Bộ template chuẩn mực dành cho Tech Lead, Kỹ sư phần mềm và AI Ag
 ├── .codegraph/              # Cấu hình và hướng dẫn index CodeGraph
 ├── .github/                 # GitHub workflows & templates
 │   ├── ISSUE_TEMPLATE/      # Feature, Bug, Tech Debt, ADR Issue forms
-│   ├── workflows/           # CI/CD pipeline template
+│   ├── workflows/           # CI/CD pipeline & Deployments (Preview/Production)
 │   └── pull_request_template.md
 ├── docs/                    # Tài liệu kỹ thuật dự án theo từng giai đoạn
 │   ├── product/             # Tầm nhìn, MVP scope, chỉ số KPI
 │   ├── requirements/        # PRD, User Stories & Acceptance Criteria
 │   ├── techs/               # Ma trận chọn công nghệ & Checklist quyết định
-│   ├── architecture/        # Kiến trúc tổng thể, module boundaries, NFR
+│   ├── architecture/        # Kiến trúc tổng thể, RBAC, Deployments & Demo links, NFR
 │   ├── diagrams/            # Thư viện sơ đồ mẫu Mermaid (C4, ERD, Sequence)
 │   ├── database/            # Thiết kế CSDL, Data Dictionary, Migration template
 │   ├── api-spec/            # Đặc tả OpenAPI 3.1 & API conventions
 │   ├── ui-ux/               # Design Tokens & Luồng giao diện người dùng
 │   ├── task/                # Phân rã WBS, Sprint Backlog & Checklist
-│   ├── impeccable/          # Quy chuẩn Clean Code, Security, DoD, Git Commit
+│   ├── impeccable/          # Quy chuẩn Clean Code, Security, QA Strategy, Git Commit
 │   ├── ai-integration/      # Kiến trúc tích hợp LLM, Model Router, Fallback
 │   ├── prompts/             # Danh mục prompt chuẩn cho từng vai trò
 │   └── dev-logs/            # Nhật ký phát triển hàng ngày & ADR
 ├── scripts/                 # Kịch bản tự động hóa khởi tạo repo (PowerShell & Bash)
 ├── .editorconfig            # Quy chuẩn định dạng mã nguồn nhất quán cho mọi IDE
 ├── .env.example             # Mẫu biến môi trường
+├── .gitleaks.toml           # Cấu hình quét bảo mật Gitleaks loại trừ file mẫu
 ├── .gitignore               # Universal gitignore đa ngôn ngữ
 ├── docker-compose.yml       # Khởi chạy hạ tầng dịch vụ cục bộ (PostgreSQL, Redis, Mailpit)
 ├── AGENTS.md                # Quy ước vận hành trung tâm cho AI Agent
