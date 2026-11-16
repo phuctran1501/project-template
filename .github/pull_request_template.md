@@ -18,10 +18,10 @@ Liên kết Issue: Closes #<!-- Số issue tương ứng -->
 
 ## 📋 Kiểm Tra Tiêu Chuẩn Hoàn Thành (Definition of Done Checklist)
 <!-- Vui lòng tích chọn trước khi gắn thẻ reviewer hoặc merge -->
-- [ ] Mã nguồn tuân thủ [docs/standards/coding-standards.md](file:///docs/standards/coding-standards.md).
+- [ ] Mã nguồn tuân thủ [docs/standards/coding-standards.md](../docs/standards/coding-standards.md).
 - [ ] Đã viết Unit Test / Integration Test với độ bao phủ (coverage) đạt chuẩn.
 - [ ] Đã chạy kiểm tra linter/formatter và không có cảnh báo/lỗi mới.
-- [ ] Đã kiểm tra an toàn bảo mật theo [docs/standards/security-checklist.md](file:///docs/standards/security-checklist.md) (không để lộ bí mật/token).
+- [ ] Đã kiểm tra an toàn bảo mật theo [docs/standards/security-checklist.md](../docs/standards/security-checklist.md) (không để lộ bí mật/token).
 - [ ] Đã cập nhật tài liệu liên quan trong `docs/` (nếu có thay đổi kiến trúc/API/DB).
 - [ ] Tương thích ngược hoặc đã viết migration script nếu có thay đổi CSDL.
 

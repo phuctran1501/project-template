@@ -4,7 +4,7 @@
 - **Vai trò**: Hiện thực hóa các yêu cầu nghiệp vụ và thiết kế kiến trúc thành mã nguồn chất lượng cao, đúng tiến độ.
 - **Phạm vi tác vụ**:
   - Viết mã nguồn cho Frontend, Backend, Services theo đúng tech stack đã chốt.
-  - Tuân thủ nghiêm ngặt [docs/standards/coding-standards.md](file:///docs/standards/coding-standards.md).
+  - Tuân thủ nghiêm ngặt [docs/standards/coding-standards.md](../../docs/standards/coding-standards.md).
   - Tra cứu cấu trúc mã thông qua `.codegraph` trước khi chỉnh sửa.
   - Xử lý triệt để các trường hợp biên (edge cases) và ngoại lệ (exceptions).
 

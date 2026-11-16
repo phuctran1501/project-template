@@ -8,7 +8,7 @@ Bộ template chuẩn mực dành cho Tech Lead, Kỹ sư phần mềm và AI Ag
 
 1. **AI-Native Harness**: Có sẵn cấu trúc chỉ dẫn và ngữ cảnh để AI Agents tự động đọc hiểu và thực thi nhiệm vụ mà không bị ảo giác (hallucination).
 2. **Không Quyết Định Thay Người Dùng**: Mọi thông số kiến trúc, ngôn ngữ, công nghệ, thiết kế màu sắc UI đều ở dạng template khảo sát. Người dùng điền thông tin hoặc phê duyệt trước khi AI sinh mã nguồn.
-3. **Không Tự Ý Commit Hay Push Lên GitHub**: AI Agent tuyệt đối không tự ý commit hoặc push code. Agent chỉ cung cấp gợi ý câu lệnh Git, template commit và tên commit chuẩn (Conventional Commits) theo [docs/standards/git-workflow-and-commit.md](file:///docs/standards/git-workflow-and-commit.md) để người dùng tự kiểm tra và thực thi.
+3. **Không Tự Ý Commit Hay Push Lên GitHub**: AI Agent tuyệt đối không tự ý commit hoặc push code. Agent chỉ cung cấp gợi ý câu lệnh Git, template commit và tên commit chuẩn (Conventional Commits) theo [docs/standards/git-workflow-and-commit.md](docs/standards/git-workflow-and-commit.md) để người dùng tự kiểm tra và thực thi.
 4. **Quy Chuẩn Chú Thích Mã Nguồn (Code Comments)**: Toàn bộ chú thích trong file code phải viết bằng tiếng Việt, tuyệt đối không dùng dấu ngoặc đơn `()` và không dùng icon/emoji.
 5. **Tiết Kiệm Token & Tối Ưu Tự Động Hóa**: Cấu trúc module hóa rõ ràng, tra cứu qua `.codegraph` và tài liệu markdown tinh gọn.
 
@@ -34,7 +34,7 @@ Bộ template chuẩn mực dành cho Tech Lead, Kỹ sư phần mềm và AI Ag
 │   ├── database/            # Thiết kế CSDL, Data Dictionary, Migration template
 │   ├── api-spec/            # Đặc tả OpenAPI 3.1 & API conventions
 │   ├── ui-ux/               # Design Tokens, User Journey & Chuẩn Impeccable UI/UX (DESIGN.md)
-│   ├── task/                # Phân rã WBS, Sprint Backlog & Checklist
+│   ├── task/                # Phân rã WBS, Task Contract, Sprint Backlog & Checklist
 │   ├── standards/           # Quy chuẩn Clean Code, Security, QA Strategy, Git Commit
 │   ├── ai-integration/      # Kiến trúc tích hợp LLM, Model Router, Fallback
 │   ├── prompts/             # Danh mục prompt chuẩn cho từng vai trò
@@ -67,10 +67,10 @@ Template cung cấp 2 script tự động hóa dùng `gh` CLI (không tự ý co
   ```
 
 ### Bước 2: Điền Quyết Định Công Nghệ
-Mở và điền vào bảng khảo sát tại [docs/techs/decision-checklist.md](file:///docs/techs/decision-checklist.md):
+Mở và điền vào bảng khảo sát tại [docs/techs/decision-checklist.md](docs/techs/decision-checklist.md):
 - Ngôn ngữ & Framework (Frontend / Backend)
 - Hệ quản trị CSDL & Caching
-- Bảng màu & Design System Tokens tại [docs/ui-ux/design-tokens-template.md](file:///docs/ui-ux/design-tokens-template.md)
+- Bảng màu & Design System Tokens tại [docs/ui-ux/design-tokens-template.md](docs/ui-ux/design-tokens-template.md)
 
 ### Bước 3: Giao Tác Vụ Cho AI Agent
-Kêu gọi AI Agent thực thi từng bước dựa theo [AGENTS.md](file:///AGENTS.md) và các prompt mẫu tại [docs/prompts/system-prompts.md](file:///docs/prompts/system-prompts.md).
+Kêu gọi AI Agent thực thi từng bước dựa theo [AGENTS.md](AGENTS.md) và các prompt mẫu tại [docs/prompts/system-prompts.md](docs/prompts/system-prompts.md).

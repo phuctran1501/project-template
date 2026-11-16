@@ -3,8 +3,9 @@
 
 # --- Bien moi truong va chuoi bi mat ---
 .env
-.env.local
-.env.*.local
+.env.*
+!.env.example
+!.env.*.example
 *.env
 *.pem
 *.key

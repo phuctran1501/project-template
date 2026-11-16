@@ -14,7 +14,7 @@ Tài liệu này hướng dẫn cách kết nối và hiển thị tự động 
 
 ## 2. Cách Thức Hoạt Động Của Workflow Deployments
 
-Quy trình được tự động hóa tại file [.github/workflows/deployments.yml](file:///D:/project-template/.github/workflows/deployments.yml):
+Quy trình được tự động hóa tại file [.github/workflows/deployments.yml](../../.github/workflows/deployments.yml):
 1. **Khi push code vào nhánh `main`**:
    - Tự động kích hoạt job `deploy-production`.
    - Đăng ký môi trường `Production` trên GitHub.

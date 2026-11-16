@@ -65,4 +65,4 @@ Ví dụ sai:
 ## 5. Quy Chuẩn Git Commit Của AI Agent
 
 - AI Agent tuyệt đối không tự ý chạy lệnh commit hoặc push lên GitHub.
-- AI Agent chỉ đưa ra gợi ý câu lệnh Git, tên commit và template commit chuẩn mực theo [docs/standards/git-workflow-and-commit.md](file:///docs/standards/git-workflow-and-commit.md) để người dùng tự xem xét và quyết định.
+- AI Agent chỉ đưa ra gợi ý câu lệnh Git, tên commit và template commit chuẩn mực theo [git-workflow-and-commit.md](git-workflow-and-commit.md) để người dùng tự xem xét và quyết định.

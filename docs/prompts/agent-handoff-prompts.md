@@ -9,8 +9,8 @@ Khi một Subagent hoàn tất nhiệm vụ và chuyển giao cho Subagent tiế
 [CHUYỂN GIAO: ARCHITECT -> DEVELOPER]
 - Tác vụ vừa hoàn thành: Đã thiết kế hoàn tất kiến trúc và schema CSDL cho Task [TASK-ID].
 - Vị trí tài liệu:
-  + CSDL: [docs/database/database-design.md](file:///docs/database/database-design.md)
-  + Đặc tả API: [docs/api-spec/openapi-template.yaml](file:///docs/api-spec/openapi-template.yaml)
+  + CSDL: [docs/database/database-design.md](../database/database-design.md)
+  + Đặc tả API: [docs/api-spec/openapi-template.yaml](../api-spec/openapi-template.yaml)
 - Công việc của Developer: Hiện thực hóa mã nguồn tầng Controller, Service và Repository dựa trên spec đã duyệt. Không tự ý thay đổi tên trường hoặc kiểu dữ liệu trong schema.
 ```
 
@@ -20,7 +20,7 @@ Khi một Subagent hoàn tất nhiệm vụ và chuyển giao cho Subagent tiế
 ```text
 [CHUYỂN GIAO: DEVELOPER -> QA TESTER]
 - Tác vụ vừa hoàn thành: Đã viết xong mã nguồn cho chức năng [TÊN CHỨC NĂNG] tại các file: [DANH SÁCH FILE].
-- Tiêu chí nghiệm thu gốc: Tham chiếu User Story tại [docs/requirements/user-stories-template.md](file:///docs/requirements/user-stories-template.md).
+- Tiêu chí nghiệm thu gốc: Tham chiếu User Story tại [docs/requirements/user-stories-template.md](../requirements/user-stories-template.md).
 - Công việc của QA: Viết bộ Unit Test & Integration Test kiểm tra tính đúng đắn, bao phủ các trường hợp biên và đảm bảo test suite chạy pass 100%.
 ```
 
@@ -31,7 +31,7 @@ Khi một Subagent hoàn tất nhiệm vụ và chuyển giao cho Subagent tiế
 [CHUYỂN GIAO: DEVELOPER -> SECURITY REVIEWER]
 - Tác vụ vừa hoàn thành: Toàn bộ code và test cho PR #[SỐ PR] đã sẵn sàng để kiểm tra độc lập.
 - Danh sách file can thiệp: [LIỆT KÊ FILE].
-- Công việc của Reviewer: Rà soát bảo mật theo [docs/standards/security-checklist.md](file:///docs/standards/security-checklist.md) và xác nhận Definition of Done trước khi merge.
+- Công việc của Reviewer: Rà soát bảo mật theo [docs/standards/security-checklist.md](../standards/security-checklist.md) và xác nhận Definition of Done trước khi merge.
 ```
 
 ---

@@ -22,7 +22,7 @@ Khi làm việc với AI Agent (Antigravity/Gemini/Claude), bạn có thể gọ
 
 ### 1. `/impeccable craft <tên_màn_hình_hoặc_thành_phần>`
 - **Mục đích**: Lên kế hoạch và dựng mới một giao diện người dùng độc bản.
-- **Hành vi của Agent**: Đọc file [docs/ui-ux/DESIGN.md](file:///docs/ui-ux/DESIGN.md), xác định cấu trúc bố cục, chọn tỷ lệ kiểu chữ và dựng giao diện bám sát bản sắc thương hiệu.
+- **Hành vi của Agent**: Đọc file [DESIGN.md](DESIGN.md), xác định cấu trúc bố cục, chọn tỷ lệ kiểu chữ và dựng giao diện bám sát bản sắc thương hiệu.
 
 ### 2. `/impeccable critique <tên_thành_phần>`
 - **Mục đích**: Đánh giá chuyên sâu về trải nghiệm người dùng (UX Review).

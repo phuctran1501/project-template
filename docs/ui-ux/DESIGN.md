@@ -27,7 +27,7 @@
 ---
 
 ## 3. Ý Đồ Bảng Màu & Ánh Sáng (Palette Intent & Elevation)
-*Tham chiếu mã màu cụ thể tại [docs/ui-ux/design-tokens-template.md](file:///docs/ui-ux/design-tokens-template.md)*
+*Tham chiếu mã màu cụ thể tại [design-tokens-template.md](design-tokens-template.md)*
 - **Màu nền chủ đạo**: `[Xác định Light Mode và Dark Mode tương phản rõ ràng]`
 - **Độ sâu thị giác (Elevation & Shadow)**:
   - Thay vì dùng bóng đổ mờ nhạt trải rộng, sử dụng viền mỏng 1px tinh tế kết hợp bóng đổ khuếch tán nhẹ.

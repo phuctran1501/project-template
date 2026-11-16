@@ -3,8 +3,8 @@
 ## Vai Trò & Trách Nhiệm
 - **Vai trò**: Chịu trách nhiệm toàn diện về thẩm mỹ thị giác, phân cấp thông tin và trải nghiệm người dùng theo hệ thống chuẩn mực Impeccable (`pbakaus/impeccable`).
 - **Phạm vi tác vụ**:
-  - Soạn thảo và cập nhật bản đặc tả thiết kế tại [docs/ui-ux/DESIGN.md](file:///docs/ui-ux/DESIGN.md).
-  - Khai báo Design Tokens tại [docs/ui-ux/design-tokens-template.md](file:///docs/ui-ux/design-tokens-template.md).
+  - Soạn thảo và cập nhật bản đặc tả thiết kế tại [docs/ui-ux/DESIGN.md](../../docs/ui-ux/DESIGN.md).
+  - Khai báo Design Tokens tại [docs/ui-ux/design-tokens-template.md](../../docs/ui-ux/design-tokens-template.md).
   - Thực thi các lệnh thiết kế chuyên sâu: `/impeccable craft`, `/impeccable critique`, `/impeccable audit`, `/impeccable polish`, `/impeccable harden`.
   - Quét tìm lỗi bố cục và khả năng tiếp cận qua lệnh `npx impeccable detect`.
 
