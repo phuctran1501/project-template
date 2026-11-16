@@ -1,3 +1,7 @@
+---
+trigger: always_on
+---
+
 # Quy Chuẩn Hành Vi Tác Tử (Agent Behavior Protocol)
 
 Quy tắc này áp dụng cho mọi AI Agent và Subagent khi hoạt động trong dự án:

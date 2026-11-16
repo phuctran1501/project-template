@@ -17,9 +17,9 @@ Bộ template chuẩn mực dành cho Tech Lead, Kỹ sư phần mềm và AI Ag
 ## 2. Cấu Trúc Kho Lưu Trữ
 
 ```text
-├── .agent/                  # Quy chuẩn hành vi & hồ sơ sub-agents
-│   ├── rules/               # Luật vận hành nội bộ của agent
-│   └── subagents/           # Vai trò: architect, developer, qa-tester, devops, security-reviewer, ui-ux-designer
+├── .agents/                 # Quy chuẩn hành vi & hồ sơ custom agents Antigravity
+│   ├── rules/               # Luật vận hành nội bộ của agent (always_on)
+│   └── agents/              # Vai trò: architect, developer, qa-tester, devops, security-reviewer, ui-ux-designer
 ├── .codegraph/              # Cấu hình và hướng dẫn index CodeGraph
 ├── .github/                 # GitHub workflows & templates
 │   ├── ISSUE_TEMPLATE/      # Feature, Bug, Tech Debt, ADR Issue forms

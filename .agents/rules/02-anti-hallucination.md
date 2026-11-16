@@ -1,3 +1,7 @@
+---
+trigger: always_on
+---
+
 # Quy Tắc Chống Ảo Giác & Xác Thực Mã Nguồn (Anti-Hallucination Rules)
 
 1. **Không Tự Bịa Gói Phụ Thuộc (Package Hallucination)**:

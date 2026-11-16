@@ -114,6 +114,8 @@ obj/
 *.nupkg
 
 # --- Du lieu tam thoi cua AI Agent ---
+.agents/scratch/
+.agents/logs/
 .agent/scratch/
 .agent/logs/
 *.chat

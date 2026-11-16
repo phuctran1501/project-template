@@ -43,7 +43,7 @@ Tài liệu này là "Hiến pháp" vận hành dành cho AI Agents (Antigravity
 
 | Thư mục                | Mục đích sử dụng cho AI Agent                                                                                                                     |
 | :--------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `.agent/`              | Chứa rules và định nghĩa vai trò Sub-Agents chuyên biệt (`architect`, `developer`, `qa-tester`, `devops`, `security-reviewer`, `ui-ux-designer`). |
+| `.agents/`             | Chứa rules (`rules/`) và định nghĩa vai trò Custom Agents (`agents/`: `architect`, `developer`, `qa-tester`, `devops`, `security-reviewer`, `ui-ux-designer`). |
 | `.codegraph/`          | Chỉ mục đồ thị mã nguồn hỗ trợ phân tích phụ thuộc chính xác.                                                                                     |
 | `.github/`             | Quản lý quy chuẩn đóng góp mã (Issue Templates, PR Template, CI/CD Actions, Deployments).                                                         |
 | `docs/product/`        | Tầm nhìn, MVP scope, chỉ số KPI/OKR của sản phẩm.                                                                                                 |
@@ -65,14 +65,14 @@ Tài liệu này là "Hiến pháp" vận hành dành cho AI Agents (Antigravity
 
 ## 3. Phân Công Vai Trò Sub-Agents (Agent Delegation)
 
-Khi tác vụ phức tạp, chia nhỏ và phân quyền theo các hồ sơ tại `.agent/subagents/`:
+Khi tác vụ phức tạp, chia nhỏ và phân quyền theo các hồ sơ tại `.agents/agents/`:
 
-1. **Architect Agent** (`.agent/subagents/architect.md`): Chịu trách nhiệm phân tích yêu cầu, thiết kế kiến trúc, mô hình CSDL và API contract.
-2. **Developer Agent** (`.agent/subagents/developer.md`): Viết mã nguồn nghiệp vụ, bám sát coding standards, xử lý lỗi chi tiết.
-3. **Tester Agent** (`.agent/subagents/qa-tester.md`): Viết test cases, kiểm tra coverage, tìm edge cases và bảo mật.
-4. **DevOps Agent** (`.agent/subagents/devops.md`): Xây dựng CI/CD pipeline, container hóa (Docker), thiết lập biến môi trường và script deploy.
-5. **Reviewer Agent** (`.agent/subagents/security-reviewer.md`): Rà soát code, kiểm tra lỗ hổng bảo mật, verify PR checklist.
-6. **UI/UX Designer Agent** (`.agent/subagents/ui-ux-designer.md`): Thiết kế giao diện độc bản, tinh chỉnh micro-interactions và audit trải nghiệm theo chuẩn Impeccable (`pbakaus/impeccable`).
+1. **Architect Agent** (`.agents/agents/architect.md`): Chịu trách nhiệm phân tích yêu cầu, thiết kế kiến trúc, mô hình CSDL và API contract.
+2. **Developer Agent** (`.agents/agents/developer.md`): Viết mã nguồn nghiệp vụ, bám sát coding standards, xử lý lỗi chi tiết.
+3. **Tester Agent** (`.agents/agents/qa-tester.md`): Viết test cases, kiểm tra coverage, tìm edge cases và bảo mật.
+4. **DevOps Agent** (`.agents/agents/devops.md`): Xây dựng CI/CD pipeline, container hóa (Docker), thiết lập biến môi trường và script deploy.
+5. **Reviewer Agent** (`.agents/agents/security-reviewer.md`): Rà soát code, kiểm tra lỗ hổng bảo mật, verify PR checklist.
+6. **UI/UX Designer Agent** (`.agents/agents/ui-ux-designer.md`): Thiết kế giao diện độc bản, tinh chỉnh micro-interactions và audit trải nghiệm theo chuẩn Impeccable (`pbakaus/impeccable`).
 
 ---
 
