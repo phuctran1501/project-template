@@ -2,8 +2,7 @@
 
 Bộ template chuẩn mực dành cho Tech Lead, Kỹ sư phần mềm và AI Agent Harness. Thiết kế để tối ưu hóa toàn bộ vòng đời phát triển phần mềm (SDLC): **Phân tích -> Thiết kế -> Lập trình -> Kiểm thử -> Triển khai -> Bảo trì**, tương thích hoàn toàn với **Antigravity + Gemini** và sẵn sàng mở rộng sang **Claude**.
 
-> 📖 **Bắt đầu nhanh**: Xem ngay [Cẩm Nang Hướng Dẫn Sử Dụng (HUONG-DAN-SU-DUNG.md)](HUONG-DAN-SU-DUNG.md) để nắm bắt quy trình khởi tạo Day 0 và luồng làm việc 6 bước.
-
+> 📖 **Bắt đầu nhanh**: Xem ngay [Hướng Dẫn Sử Dụng (HUONG-DAN-SU-DUNG.md)](HUONG-DAN-SU-DUNG.md)
 ---
 
 ## 1. Triết Lý Thiết Kế & Quy Chuẩn Cốt Lõi
