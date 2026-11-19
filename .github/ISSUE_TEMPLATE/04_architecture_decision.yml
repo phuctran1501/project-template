@@ -1,34 +1,104 @@
-name: "🏛️ Quyết định kiến trúc (Architecture RFC / Decision)"
-description: Đề xuất thay đổi kiến trúc hệ thống, chọn thư viện/công nghệ mới (kèm theo ADR)
-title: "rfc: <chủ đề quyết định kiến trúc>"
-labels: ["architecture", "rfc"]
+name: "📐 Nghiên cứu kỹ thuật & Quyết định kiến trúc (Tech Spike / ADR)"
+description: Trưởng nhóm giao nhiệm vụ nghiên cứu giải pháp (Spike), khảo sát công nghệ mới hoặc lập hồ sơ ADR
+title: "spike(<chủ đề>): <nội dung nghiên cứu kiến trúc>"
+labels: ["spike", "architecture"]
 body:
-  - type: textarea
-    id: context
+  - type: markdown
     attributes:
-      label: Bối cảnh & Vấn đề (Context & Problem)
-      description: Tại sao chúng ta cần đưa ra quyết định này lúc này?
-      placeholder: "Ví dụ: Tải lượng query tăng 500%, CSDL quan hệ hiện tại bị bottleneck..."
+      value: |
+        ### 🔬 Phiếu Giao Nhiệm Vụ Nghiên Cứu Kỹ Thuật (Spike)
+        Nhiệm vụ Spike nhằm giải quyết các điểm chưa chắc chắn về mặt kỹ thuật, thử nghiệm giải pháp (PoC) và so sánh các phương án trước khi đưa vào sản xuất. Mọi kết luận phải được chuẩn hóa thành hồ sơ ADR tại `docs/dev-logs/adr/`.
+
+  - type: dropdown
+    id: assigned_role
+    attributes:
+      label: Thành viên phụ trách nghiên cứu (Assigned Role)
+      options:
+        - "Software Architect"
+        - "Backend Developer"
+        - "Frontend Developer"
+        - "DevOps & Cloud Engineer"
+        - "AI Agent (Antigravity / Gemini)"
     validations:
       required: true
-  - type: textarea
-    id: options_considered
-    attributes:
-      label: Các phương án cân nhắc (Options Considered)
-      placeholder: |
-        - Phương án A: Thêm Read Replica + Redis Cache (Ưu/Nhược điểm)
-        - Phương án B: Chuyển sang NoSQL/Elasticsearch (Ưu/Nhược điểm)
-    validations:
-      required: true
-  - type: textarea
-    id: proposed_decision
-    attributes:
-      label: Quyết định đề xuất (Proposed Decision)
-      placeholder: "Lựa chọn phương án nào và lý do chính..."
-    validations:
-      required: true
+
   - type: input
-    id: adr_link
+    id: timebox
     attributes:
-      label: Đường dẫn file ADR liên kết
-      placeholder: "docs/dev-logs/adr/0002-ten-quyet-dinh.md"
+      label: Giới hạn thời gian nghiên cứu (Timebox)
+      description: Spike bắt buộc phải có thời hạn tối đa để tránh kéo dài không hồi kết.
+      placeholder: "Ví dụ: 2 ngày làm việc / 16 giờ công / Sprint 3"
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ### 🔬 Phiếu Giao Nhiệm Vụ Nghiên Cứu Kỹ Thuật (Spike)
+        Nhiệm vụ Spike nhằm giải quyết các điểm chưa chắc chắn về mặt kỹ thuật, thử nghiệm giải pháp (PoC) và so sánh các phương án trước khi đưa vào sản xuất. Mọi kết luận phải được chuẩn hóa thành hồ sơ ADR tại `docs/dev-logs/adr/`.
+
+  - type: dropdown
+    id: assigned_role
+    attributes:
+      label: Thành viên phụ trách nghiên cứu (Assigned Role)
+      options:
+        - "Software Architect"
+        - "Senior Backend Developer"
+        - "Senior Frontend Developer"
+        - "DevOps & Cloud Engineer"
+        - "AI Agent (Antigravity / Gemini)"
+    validations:
+      required: true
+
+  - type: input
+    id: timebox
+    attributes:
+      label: Giới hạn thời gian nghiên cứu (Timebox)
+      description: Spike bắt buộc phải có thời hạn tối đa để tránh kéo dài không hồi kết.
+      placeholder: "Ví dụ: 2 ngày làm việc / 16 giờ công / Sprint 3"
+    validations:
+      required: true
+
+  - type: textarea
+    id: core_question
+    attributes:
+      label: Câu hỏi kỹ thuật cốt lõi cần trả lời (Core Technical Question)
+      description: Vấn đề kiến trúc hoặc công nghệ nào cần được làm sáng tỏ qua đợt nghiên cứu này?
+      placeholder: "Ví dụ: Nên lựa chọn PostgreSQL kết hợp Redis hay Elasticsearch để phục vụ tính năng tìm kiếm toàn văn bản với 10 triệu bản ghi?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: evaluation_criteria
+    attributes:
+      label: Tiêu chí đánh giá & Ràng buộc hệ thống (Evaluation Criteria & Drivers)
+      description: Các thước đo quan trọng để chấm điểm phương án (Hiệu năng, Chi phí, Tính mở rộng, Độ phức tạp).
+      placeholder: |
+        - Độ trễ truy vấn: Dưới 50ms ở percentile 95 (P95).
+        - Chi phí hạ tầng: Không vượt quá 100 USD mỗi tháng cho môi trường sản xuất.
+        - Khả năng bảo trì: Dễ dàng backup, migration và tương thích với stack hiện tại.
+    validations:
+      required: true
+
+  - type: textarea
+    id: options_to_compare
+    attributes:
+      label: Các phương án đưa vào so sánh (Options to Benchmark)
+      description: Liệt kê các giải pháp ứng viên cần thử nghiệm và cân nhắc.
+      placeholder: |
+        - Phương án A: Tận dụng PostgreSQL pg_trgm + GIN index (Không phát sinh dịch vụ mới).
+        - Phương án B: Tích hợp cụm Elasticsearch độc lập (Hiệu năng cao nhưng phức tạp vận hành).
+    validations:
+      required: true
+
+  - type: textarea
+    id: deliverables
+    attributes:
+      label: Sản phẩm bàn giao bắt buộc (Required Deliverables)
+      value: |
+        - [ ] Bản phân tích so sánh ưu / nhược điểm (Trade-offs Matrix).
+        - [ ] Mã nguồn PoC thử nghiệm thực tế (nếu cần chứng minh tính khả thi).
+        - [ ] Tạo file hồ sơ quyết định kiến trúc mới tại `docs/dev-logs/adr/` theo mẫu `adr-template.md`.
+        - [ ] Báo cáo kết quả và đề xuất phương án tối ưu cho Trưởng nhóm phê duyệt.
+    validations:
+      required: true

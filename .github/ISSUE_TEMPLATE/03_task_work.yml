@@ -1,31 +1,83 @@
-name: "📋 Nhiệm vụ kỹ thuật (Technical Task / WBS Item)"
-description: Tạo thẻ công việc kỹ thuật, refactor, hoặc nhiệm vụ con thuộc Sprint
-title: "task: <nội dung công việc>"
-labels: ["task"]
+name: "⚙️ Nhiệm vụ kỹ thuật & Tối ưu (Technical Task / Refactor / DevOps)"
+description: Trưởng nhóm giao việc cấu hình hạ tầng, refactor mã nguồn, tối ưu hiệu năng hoặc migration CSDL
+title: "chore(<module>): <nội dung công việc kỹ thuật>"
+labels: ["task", "technical"]
 body:
-  - type: textarea
-    id: goal
+  - type: markdown
     attributes:
-      label: Mục tiêu nhiệm vụ (Goal)
-      description: Mô tả chi tiết việc cần làm và lý do cần thực hiện.
-      placeholder: "Ví dụ: Cấu hình Redis Cache cho endpoint lấy danh sách sản phẩm nổi bật..."
+      value: |
+        ### 🔧 Phiếu Giao Nhiệm Vụ Kỹ Thuật Nội Bộ
+        Nhiệm vụ kỹ thuật nhằm củng cố chất lượng kiến trúc, tối ưu vận hành hoặc dọn dẹp nợ kỹ thuật (Tech Debt). Thành viên cần bám sát bản khế ước tác vụ tại `docs/task/task-contract-template.md`.
+
+  - type: dropdown
+    id: assigned_role
+    attributes:
+      label: Thành viên phụ trách (Assigned Role)
+      options:
+        - "DevOps & Platform Engineer"
+        - "Backend Developer"
+        - "Frontend Developer"
+        - "Fullstack Developer"
+        - "QA & Automation Tester"
+        - "AI Agent (Antigravity / Gemini)"
     validations:
       required: true
-  - type: textarea
-    id: technical_details
+
+  - type: dropdown
+    id: task_category
     attributes:
-      label: Hướng dẫn kỹ thuật / Giải pháp (Technical Approach)
-      placeholder: "Các module, file, hoặc interface cần can thiệp..."
+      label: Phân loại nhiệm vụ (Task Category)
+      options:
+        - "Hạ tầng, CI/CD & Docker (DevOps & Platform)"
+        - "Tái cấu trúc mã nguồn (Refactor & Clean Architecture)"
+        - "Cơ sở dữ liệu & Tối ưu hóa (Database, Migration & Performance)"
+        - "Bảo mật & Kiểm soát truy cập (Security & RBAC)"
+        - "Tự động hóa kiểm thử (Test Automation & Coverage)"
     validations:
-      required: false
+      required: true
+
   - type: textarea
-    id: subtasks
+    id: technical_goal
     attributes:
-      label: Danh sách việc cần làm (Checklist)
+      label: Mục tiêu kỹ thuật (Technical Goal)
+      description: Nêu rõ kết quả kỹ thuật cần đạt được và lý do tại sao cần thực hiện lúc này.
+      placeholder: "Ví dụ: Tích hợp Redis Cache cho danh mục sản phẩm nhằm giảm tải 70% query trực tiếp vào PostgreSQL..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: technical_approach
+    attributes:
+      label: Phương án triển khai & Ràng buộc (Technical Approach & Constraints)
+      description: Định hướng từ Trưởng nhóm về thư viện, design patterns và những điều cần lưu ý.
+      placeholder: |
+        - Sử dụng thư viện ioredis với connection pooling.
+        - Áp dụng Cache-Aside Pattern với cơ chế TTL 30 phút.
+        - Ràng buộc: Không làm gián đoạn các API hiện tại, xử lý graceful degradation khi Redis gặp sự cố.
+    validations:
+      required: true
+
+  - type: textarea
+    id: wbs_checklist
+    attributes:
+      label: Danh sách các bước triển khai (Step-by-step WBS)
       value: |
-        - [ ] Bước 1: Khai báo interface/schema
-        - [ ] Bước 2: Hiện thực logic nghiệp vụ
-        - [ ] Bước 3: Viết Unit / Integration test
-        - [ ] Bước 4: Cập nhật tài liệu docs/
+        - [ ] Bước 1: Khai báo biến môi trường và service kết nối
+        - [ ] Bước 2: Hiện thực hóa logic caching tại tầng Repository / Service
+        - [ ] Bước 3: Viết Unit / Integration Test kiểm tra cache hit và cache miss
+        - [ ] Bước 4: Kiểm tra benchmark hiệu năng trước và sau khi tối ưu
+        - [ ] Bước 5: Cập nhật tài liệu kỹ thuật tương ứng tại docs/
+    validations:
+      required: true
+
+  - type: textarea
+    id: verification_and_dod
+    attributes:
+      label: Tiêu chuẩn nghiệm thu & Bằng chứng thực thi (DoD & Verification)
+      value: |
+        - [ ] Lệnh kiểm tra định dạng và kiểu dữ liệu chạy thành công (Lint & Typecheck: PASS).
+        - [ ] Tất cả bài kiểm thử mới và cũ chạy vượt qua (Test Suite: PASS).
+        - [ ] Không để lộ secret hoặc mật khẩu trong file cấu hình.
+        - [ ] Đính kèm bằng chứng thực thi thực tế (log output) vào Pull Request.
     validations:
       required: true

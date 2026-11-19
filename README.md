@@ -2,6 +2,8 @@
 
 Bộ template chuẩn mực dành cho Tech Lead, Kỹ sư phần mềm và AI Agent Harness. Thiết kế để tối ưu hóa toàn bộ vòng đời phát triển phần mềm (SDLC): **Phân tích -> Thiết kế -> Lập trình -> Kiểm thử -> Triển khai -> Bảo trì**, tương thích hoàn toàn với **Antigravity + Gemini** và sẵn sàng mở rộng sang **Claude**.
 
+> 📖 **Bắt đầu nhanh**: Xem ngay [Cẩm Nang Hướng Dẫn Sử Dụng (HUONG-DAN-SU-DUNG.md)](HUONG-DAN-SU-DUNG.md) để nắm bắt quy trình khởi tạo Day 0 và luồng làm việc 6 bước.
+
 ---
 
 ## 1. Triết Lý Thiết Kế & Quy Chuẩn Cốt Lõi
@@ -22,7 +24,7 @@ Bộ template chuẩn mực dành cho Tech Lead, Kỹ sư phần mềm và AI Ag
 │   └── agents/              # Vai trò: architect, developer, qa-tester, devops, security-reviewer, ui-ux-designer
 ├── .codegraph/              # Cấu hình và hướng dẫn index CodeGraph
 ├── .github/                 # GitHub workflows & templates
-│   ├── ISSUE_TEMPLATE/      # Feature, Bug, Tech Debt, ADR Issue forms
+│   ├── ISSUE_TEMPLATE/      # Phiếu giao việc từ Lead: Feature, Bug Fix, Technical Task, Spike
 │   ├── workflows/           # CI/CD pipeline & Deployments (Preview/Production)
 │   └── pull_request_template.md
 ├── docs/                    # Tài liệu kỹ thuật dự án theo từng giai đoạn
@@ -46,6 +48,7 @@ Bộ template chuẩn mực dành cho Tech Lead, Kỹ sư phần mềm và AI Ag
 ├── .gitignore               # Universal gitignore đa ngôn ngữ
 ├── docker-compose.yml       # Khởi chạy hạ tầng dịch vụ cục bộ (PostgreSQL, Redis, Mailpit)
 ├── AGENTS.md                # Quy ước vận hành trung tâm cho AI Agent
+├── HUONG-DAN-SU-DUNG.md     # Cẩm nang hướng dẫn sử dụng nhanh và quy trình 6 bước
 ├── LICENSE                  # Giấy phép MIT
 └── README.md                # Cẩm nang tổng quan của template
 ```
@@ -55,7 +58,9 @@ Bộ template chuẩn mực dành cho Tech Lead, Kỹ sư phần mềm và AI Ag
 ## 3. Hướng Dẫn Khởi Tạo Dự Án Mới (Quickstart)
 
 ### Bước 1: Chạy Script Khởi Tạo Bằng GitHub CLI
+
 Template cung cấp 2 script tự động hóa dùng `gh` CLI (không tự ý commit/push mà chỉ tạo repo và gợi ý lệnh commit):
+
 - **Windows (PowerShell)**:
   ```powershell
   .\scripts\init-repo.ps1 -RepoName "my-awesome-app" -Visibility "private"
@@ -67,10 +72,13 @@ Template cung cấp 2 script tự động hóa dùng `gh` CLI (không tự ý co
   ```
 
 ### Bước 2: Điền Quyết Định Công Nghệ
+
 Mở và điền vào bảng khảo sát tại [docs/techs/decision-checklist.md](docs/techs/decision-checklist.md):
+
 - Ngôn ngữ & Framework (Frontend / Backend)
 - Hệ quản trị CSDL & Caching
 - Bảng màu & Design System Tokens tại [docs/ui-ux/design-tokens-template.md](docs/ui-ux/design-tokens-template.md)
 
 ### Bước 3: Giao Tác Vụ Cho AI Agent
+
 Kêu gọi AI Agent thực thi từng bước dựa theo [AGENTS.md](AGENTS.md) và các prompt mẫu tại [docs/prompts/system-prompts.md](docs/prompts/system-prompts.md).

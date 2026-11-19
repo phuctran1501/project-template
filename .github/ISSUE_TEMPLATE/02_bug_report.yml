@@ -1,54 +1,88 @@
-name: "🐛 Báo cáo lỗi (Bug Report)"
-description: Báo cáo một sự cố, lỗi runtime hoặc hành vi không mong đợi
-title: "fix: <mô tả ngắn về lỗi>"
-labels: ["bug", "needs-triage"]
+name: "🐛 Giao việc sửa lỗi (Bug Fix Assignment)"
+description: Trưởng nhóm hoặc QA giao việc điều tra, khoanh vùng và khắc phục lỗi phần mềm cho thành viên
+title: "fix(<module>): <mô tả ngắn gọn về lỗi>"
+labels: ["bug", "needs-fix"]
 body:
   - type: markdown
     attributes:
       value: |
-        Vui lòng cung cấp các bước tái hiện lỗi chi tiết để hỗ trợ debug nhanh nhất.
-  - type: textarea
-    id: summary
+        ### 🛠️ Phiếu Giao Việc Khắc Phục Sự Cố
+        Thành viên nhận nhiệm vụ cần tái hiện được lỗi trước khi sửa, bổ sung bài kiểm thử hồi quy (Regression Test) để đảm bảo lỗi không tái diễn và không gây tác động phụ.
+
+  - type: dropdown
+    id: assigned_role
     attributes:
-      label: Mô tả tóm tắt lỗi (Summary)
-      description: Lỗi gì đã xảy ra?
-      placeholder: "Ví dụ: Lỗi 500 khi người dùng bấm thanh toán đơn hàng có voucher giảm giá..."
+      label: Thành viên phụ trách xử lý (Assigned Role)
+      options:
+        - "Backend Developer"
+        - "Frontend Developer"
+        - "Fullstack Developer"
+        - "QA & Automation Tester"
+        - "DevOps Engineer"
+        - "AI Agent (Antigravity / Gemini)"
     validations:
       required: true
-  - type: textarea
-    id: reproduction_steps
-    attributes:
-      label: Các bước tái hiện (Steps to Reproduce)
-      description: Ghi lại từng bước rõ ràng.
-      value: |
-        1. Đi tới trang '...'
-        2. Bấm vào nút '...'
-        3. Điền dữ liệu '...'
-        4. Quan sát thấy lỗi xuất hiện
-    validations:
-      required: true
-  - type: textarea
-    id: expected_vs_actual
-    attributes:
-      label: Kỳ vọng so với Thực tế (Expected vs Actual)
-      placeholder: |
-        - Kỳ vọng: Hệ thống thông báo thành công và chuyển sang trang xác nhận.
-        - Thực tế: Màn hình báo lỗi "Internal Server Error" và trừ điểm thưởng 2 lần.
-    validations:
-      required: true
-  - type: textarea
-    id: logs_or_screenshots
-    attributes:
-      label: Logs / Stacktrace / Ảnh chụp màn hình
-      placeholder: "Dán đoạn log terminal, network payload hoặc link ảnh tại đây..."
+
   - type: dropdown
     id: severity
     attributes:
       label: Mức độ nghiêm trọng (Severity)
       options:
-        - "Thấp (Trivial/Cosmetic)"
-        - "Trung bình (Minor - Có cách tránh tạm thời)"
-        - "Cao (Major - Chức năng chính bị hỏng)"
-        - "Khẩn cấp (Blocker/Critical - Sập hệ thống/Mất dữ liệu)"
+        - "P0 - Blocker (Sập hệ thống / Rò rỉ bảo mật / Mất dữ liệu - Cần xử lý ngay)"
+        - "P1 - Critical (Chức năng cốt lõi bị hỏng, chưa có phương án tránh tạm thời)"
+        - "P2 - Major (Tính năng phụ trợ có lỗi nhưng hệ thống vẫn vận hành được)"
+        - "P3 - Minor (Lỗi giao diện, sai lệch hiển thị nhỏ, không ảnh hưởng nghiệp vụ)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: defect_summary
+    attributes:
+      label: Hiện tượng lỗi & Hành vi sai lệch (Defect Summary)
+      description: Mô tả sự cố đang xảy ra và hành vi kỳ vọng đúng theo đặc tả.
+      placeholder: |
+        - Hiện tượng thực tế: Khi bấm thanh toán đơn hàng có áp dụng mã giảm giá, hệ thống trả về HTTP 500.
+        - Kỳ vọng theo spec: Hệ thống tính lại tổng tiền hợp lệ và chuyển tiếp sang cổng thanh toán.
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment_and_logs
+    attributes:
+      label: Môi trường xảy ra lỗi & Bằng chứng (Environment & Logs)
+      description: Môi trường (Local / Staging / Production), stacktrace, request payload hoặc ảnh chụp màn hình.
+      placeholder: "Dán URL môi trường, đoạn log lỗi terminal, stacktrace từ server hoặc payload request/response tại đây..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction_steps
+    attributes:
+      label: Các bước tái hiện lỗi (Steps to Reproduce)
+      value: |
+        1. Đăng nhập bằng tài khoản thử nghiệm
+        2. Thêm sản phẩm vào giỏ hàng
+        3. Nhập mã giảm giá 'DISCOUNT50'
+        4. Bấm nút 'Xác nhận thanh toán'
+        5. Quan sát thấy lỗi 500 xuất hiện trên console
+    validations:
+      required: true
+
+  - type: textarea
+    id: suspected_root_cause
+    attributes:
+      label: Phỏng đoán nguyên nhân & File nghi vấn (Suspected Root Cause & Files)
+      description: Định hướng từ Trưởng nhóm hoặc QA về các file/module cần khoanh vùng kiểm tra.
+      placeholder: "Nghi ngờ lỗi chia cho 0 hoặc null pointer tại src/modules/orders/discount.service.ts..."
+
+  - type: textarea
+    id: fix_dod
+    attributes:
+      label: Yêu cầu nghiệm thu sửa lỗi (Definition of Done)
+      value: |
+        - [ ] Tái hiện được lỗi và xác định chính xác nguyên nhân gốc rễ (Root Cause).
+        - [ ] Viết bài Unit / Integration Test chứng minh lỗi đã được khắc phục hoàn toàn.
+        - [ ] Toàn bộ bộ kiểm thử hiện hữu đều vượt qua (100% Green, không hồi quy).
+        - [ ] Cập nhật tài liệu kỹ thuật tại docs/ nếu bản sửa đổi có điều chỉnh logic nghiệp vụ.
     validations:
       required: true

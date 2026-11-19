@@ -1,46 +1,98 @@
-name: "✨ Yêu cầu tính năng (Feature Request)"
-description: Đề xuất một tính năng hoặc cải tiến mới cho hệ thống
-title: "feat: <mô tả ngắn về tính năng>"
-labels: ["enhancement", "needs-triage"]
+name: "🚀 Giao việc tính năng (Feature Task Assignment)"
+description: Trưởng nhóm giao việc phát triển tính năng mới hoặc User Story cho thành viên
+title: "feat(<module>): <tên tính năng ngắn gọn>"
+labels: ["feature", "ready-to-dev"]
 body:
   - type: markdown
     attributes:
       value: |
-        Cảm ơn bạn đã đóng góp đề xuất! Vui lòng điền đầy đủ các mục dưới đây để nhóm phát triển và AI Agent dễ dàng phân tích và lập kế hoạch.
-  - type: textarea
-    id: problem
+        ### 📋 Phiếu Giao Việc Tính Năng Từ Trưởng Nhóm
+        Thành viên hoặc AI Subagent khi nhận thẻ này cần đọc kỹ tài liệu đặc tả, tuân thủ phạm vi công việc và đáp ứng đầy đủ tiêu chí nghiệm thu trước khi mở Pull Request.
+
+  - type: dropdown
+    id: assigned_role
     attributes:
-      label: Vấn đề cần giải quyết (Problem Statement)
-      description: Tính năng này giải quyết nỗi đau hoặc vấn đề gì của người dùng?
-      placeholder: "Ví dụ: Người dùng hiện tại không thể lọc danh sách sản phẩm theo khoảng giá..."
+      label: Vai trò đảm nhiệm chính (Assigned Role)
+      description: Phân công cho vị trí chuyên môn nào trong nhóm?
+      options:
+        - "Backend Developer"
+        - "Frontend Developer"
+        - "Fullstack Developer"
+        - "UI/UX Designer"
+        - "QA & Automation Tester"
+        - "DevOps Engineer"
+        - "AI Agent (Antigravity / Gemini)"
     validations:
       required: true
-  - type: textarea
-    id: solution
+
+  - type: dropdown
+    id: priority
     attributes:
-      label: Giải pháp đề xuất (Proposed Solution)
-      description: Mô tả cách giải quyết hoặc hành vi mong đợi của tính năng.
-      placeholder: "Thêm bộ lọc đa tiêu chí gồm slider giá và dropdown danh mục..."
+      label: Mức độ ưu tiên (Priority)
+      options:
+        - "P0 - Khẩn cấp (Blocker cho Sprint hiện tại)"
+        - "P1 - Cao (Tính năng trọng tâm của bản phát hành)"
+        - "P2 - Trung bình (Tính năng phát triển bình thường)"
+        - "P3 - Thấp (Cải tiến bổ trợ, có thể hoãn lại)"
     validations:
       required: true
+
+  - type: textarea
+    id: objective
+    attributes:
+      label: Mục tiêu & Yêu cầu nghiệp vụ (Objective & Requirements)
+      description: Mô tả chi tiết tính năng cần xây dựng và bài toán nghiệp vụ cần giải quyết.
+      placeholder: "Ví dụ: Xây dựng chức năng xác thực người dùng bằng JWT, bao gồm đăng ký, đăng nhập và cấp mới refresh token..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: references
+    attributes:
+      label: Tài liệu đặc tả & Ngữ cảnh dự án (Context & References)
+      description: Các tài liệu kỹ thuật thành viên bắt buộc phải đọc trước khi lập trình.
+      value: |
+        - Yêu cầu nghiệp vụ: docs/requirements/user-stories-template.md
+        - Kiến trúc hệ thống: docs/architecture/system-architecture.md
+        - Thiết kế CSDL: docs/database/database-design.md
+        - Đặc tả API: docs/api-spec/openapi-template.yaml
+        - Bản đặc tả UI/UX: docs/ui-ux/DESIGN.md
+        - Khế ước tác vụ: docs/task/task-contract-template.md
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Phạm vi cho phép & Nghiêm cấm (Scope & Boundaries)
+      description: Xác định rõ phần mã nguồn được phép can thiệp để tránh xung đột mã.
+      placeholder: |
+        - Phạm vi cho phép: Tạo mới module auth tại src/modules/auth/ và các bài test tương ứng.
+        - Nghiêm cấm can thiệp: Không thay đổi cấu trúc bảng users đã chốt, không sửa file CI/CD.
+    validations:
+      required: true
+
   - type: textarea
     id: acceptance_criteria
     attributes:
-      label: Tiêu chí chấp nhận (Acceptance Criteria - Gherkin / Checklist)
-      description: Các điều kiện cụ thể để tính năng được coi là hoàn thành.
+      label: Tiêu chí nghiệm thu (Acceptance Criteria - Checklist)
+      description: Các điều kiện bắt buộc phải vượt qua để Trưởng nhóm nghiệm thu hoàn thành.
       value: |
-        - [ ] Cho phép người dùng chọn mức giá từ min đến max.
-        - [ ] Kết quả tự động cập nhật hoặc bấm nút 'Áp dụng'.
-        - [ ] Có thông báo khi không có sản phẩm nào khớp bộ lọc.
+        - [ ] AC-01: Người dùng có thể đăng ký tài khoản với email hợp lệ và mật khẩu tối thiểu 8 ký tự.
+        - [ ] AC-02: Đăng nhập thành công trả về access token thời hạn 15 phút và refresh token thời hạn 7 ngày.
+        - [ ] AC-03: Trả về mã lỗi 401 rõ ràng khi thông tin đăng nhập không chính xác.
+        - [ ] AC-04: Đạt độ bao phủ kiểm thử tối thiểu 80% cho tầng nghiệp vụ (Domain / Service).
     validations:
       required: true
-  - type: checkboxes
-    id: impact_scope
+
+  - type: textarea
+    id: verification_commands
     attributes:
-      label: Phạm vi ảnh hưởng (Impact Scope)
-      options:
-        - label: Frontend / Giao diện người dùng
-        - label: Backend / API Services
-        - label: Cơ sở dữ liệu (Database Schema / Migration)
-        - label: AI / LLM Integration
-        - label: Hạ tầng / DevOps / CI-CD
+      label: Lệnh kiểm chứng thực tế (Verification Commands)
+      description: Lệnh thành viên phải chạy cục bộ và đính kèm bằng chứng vào Pull Request.
+      value: |
+        - Kiểm tra định dạng: npm run lint
+        - Kiểm tra kiểu dữ liệu: npm run typecheck
+        - Chạy kiểm thử tự động: npm test
+    validations:
+      required: true
