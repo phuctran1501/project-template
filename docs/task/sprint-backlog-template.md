@@ -10,10 +10,10 @@
 
 | Mã Task | Tiêu Đề Nhiệm Vụ | Phụ Trách (Assignee) | Điểm (SP) | Ước Lượng (Giờ) | Thực Tế (Giờ) | Trạng Thái |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| `TASK-101` | Khởi tạo cấu hình linter & formatter | Developer Agent | 1 | 1h | 0.8h | ✅ DONE |
-| `TASK-102` | Thiết kế migration CSDL cho bảng Users | Architect Agent | 2 | 2h | 1.5h | ✅ DONE |
-| `TASK-103` | Viết API Endpoint POST /auth/register | Developer Agent | 3 | 3h | - | 🟡 IN PROGRESS |
-| `TASK-104` | Viết Unit Test cho Auth Controller | QA Tester Agent | 2 | 2h | - | ⚪ TODO |
+| `TASK-101` | Khởi tạo cấu hình linter & formatter | Lập trình viên | 1 | 1h | 0.8h | ✅ DONE |
+| `TASK-102` | Thiết kế migration CSDL cho bảng Users | Kiến trúc | 2 | 2h | 1.5h | ✅ DONE |
+| `TASK-103` | Viết API Endpoint POST /auth/register | Backend | 3 | 3h | - | 🟡 IN PROGRESS |
+| `TASK-104` | Viết Unit Test cho Auth Controller | QA | 2 | 2h | - | ⚪ TODO |
 | `TASK-105` | Rà soát bảo mật mã nguồn trước khi merge | Security Reviewer | 1 | 1h | - | ⚪ TODO |
 
 *Quy ước trạng thái*:

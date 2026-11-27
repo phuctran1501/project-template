@@ -19,7 +19,7 @@ body:
         - "Frontend Developer"
         - "Fullstack Developer"
         - "QA & Automation Tester"
-        - "AI Agent (Antigravity / Gemini)"
+        - "Thành viên dự án hoặc cá nhân"
     validations:
       required: true
 
@@ -74,10 +74,11 @@ body:
     id: verification_and_dod
     attributes:
       label: Tiêu chuẩn nghiệm thu & Bằng chứng thực thi (DoD & Verification)
+      description: Xác định lệnh hoặc thao tác kiểm tra theo phạm vi và ghi kết quả trong Pull Request.
       value: |
-        - [ ] Lệnh kiểm tra định dạng và kiểu dữ liệu chạy thành công (Lint & Typecheck: PASS).
-        - [ ] Tất cả bài kiểm thử mới và cũ chạy vượt qua (Test Suite: PASS).
+        - [ ] Kiểm tra định dạng, kiểu dữ liệu và hồi quy nếu áp dụng.
         - [ ] Không để lộ secret hoặc mật khẩu trong file cấu hình.
         - [ ] Đính kèm bằng chứng thực thi thực tế (log output) vào Pull Request.
+        - Lệnh hoặc thao tác kiểm chứng cần chạy khi bàn giao
     validations:
       required: true

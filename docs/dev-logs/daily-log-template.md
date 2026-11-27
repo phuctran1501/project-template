@@ -1,8 +1,8 @@
 # Mẫu Nhật Ký Phát Triển Hàng Ngày (Daily Development Log)
 
-**Ngày ghi nhận**: `[YYYY-MM-DD]`  
-**Người / Agent ghi nhận**: `[Tên Kỹ Sư / Subagent]`  
-**Sprint hiện tại**: `[Sprint 01]`
+- **Ngày ghi nhận** `[YYYY-MM-DD]`
+- **Người ghi nhận** `[Tên hoặc vai trò]`
+- **Sprint hiện tại** `[Sprint 01]`
 
 ---
 

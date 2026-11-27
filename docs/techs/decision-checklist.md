@@ -1,7 +1,7 @@
 # Bảng Khảo Sát & Chốt Quyết Định Công Nghệ (Tech Stack Decision Checklist)
 
 > **DÀNH CHO NGƯỜI DÙNG & TECH LEAD**:  
-> Vui lòng tích chọn hoặc điền công nghệ bạn muốn sử dụng cho dự án này. AI Agent sẽ dựa vào bảng này để sinh mã nguồn, thiết lập cấu hình CI/CD và viết kiểm thử, **tuyệt đối không tự ý áp đặt**.
+> Ghi lựa chọn đã được phê duyệt và dùng bảng này làm căn cứ để triển khai mã, CI/CD và kiểm thử.
 
 ---
 

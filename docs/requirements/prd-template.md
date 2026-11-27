@@ -16,12 +16,12 @@
 
 ## 2. Yêu Cầu Chức Năng (Functional Requirements)
 
-| Mã Yêu Cầu | Tên Chức Năng | Mô Tả Nghiệp Vụ | Mức Ưu Tiên | Subagent Phụ Trách |
+| Mã Yêu Cầu | Tên Chức Năng | Mô Tả Nghiệp Vụ | Mức Ưu Tiên | Người hoặc nhóm phụ trách |
 | :--- | :--- | :--- | :--- | :--- |
 | `FR-001` | Xác thực người dùng | Đăng ký, đăng nhập JWT, phân quyền RBAC | P0 (Bắt buộc) | Backend / Fullstack |
 | `FR-002` | Quản lý thực thể chính | CRUD dữ liệu nghiệp vụ cốt lõi | P0 (Bắt buộc) | Fullstack |
 | `FR-003` | Xuất báo cáo dữ liệu | Cho phép xuất dữ liệu ra định dạng Excel/CSV | P1 (Nên có) | Backend |
-| `FR-004` | Tích hợp AI gợi ý | Tự động phân tích và đưa ra khuyến nghị | P2 (Có thể hoãn) | AI Harness |
+| `FR-004` | Tích hợp AI gợi ý | Tự động phân tích và đưa ra khuyến nghị | P2 (Có thể hoãn) | Backend / ML |
 
 ---
 

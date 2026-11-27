@@ -14,16 +14,17 @@ Tài liệu này hướng dẫn cách kết nối và hiển thị tự động 
 
 ## 2. Cách Thức Hoạt Động Của Workflow Deployments
 
-Quy trình được tự động hóa tại file [.github/workflows/deployments.yml](../../.github/workflows/deployments.yml):
-1. **Khi push code vào nhánh `main`**:
-   - Tự động kích hoạt job `deploy-production`.
-   - Đăng ký môi trường `Production` trên GitHub.
-   - Gắn kèm đường dẫn URL chính thức của sản phẩm.
-2. **Khi mở hoặc cập nhật một Pull Request**:
-   - Tự động kích hoạt job `deploy-preview`.
-   - Đăng ký môi trường `Preview` trên GitHub kèm đường dẫn xem trước theo số PR.
-3. **Kích hoạt thủ công (Workflow Dispatch)**:
-   - Bạn có thể vào tab **Actions** -> Chọn **Deployments Management** -> Bấm **Run workflow** -> Dán link demo bất kỳ từ Vercel hoặc Render để cập nhật URL ngay lập tức.
+Workflow đăng ký URL HTTPS theo cấu hình tại [Deployments Management](../../.github/workflows/deployments.yml).
+
+| Sự kiện | Môi trường | Nguồn URL |
+| --- | --- | --- |
+| Push lên `main` | Production | Biến repository `PRODUCTION_URL`. Job được bỏ qua nếu biến trống. |
+| Mở, mở lại hoặc cập nhật PR | Preview | Biến repository `PREVIEW_URL`. Job được bỏ qua nếu biến trống. |
+| Chạy thủ công từ **Actions → Deployments Management → Run workflow** | Môi trường đã chọn. Production yêu cầu nhánh `main`. | `target_url` nếu có, sau đó đến biến repository của môi trường tương ứng. |
+
+URL phải dùng HTTPS, nằm trên một dòng và không chứa thông tin đăng nhập. Workflow báo lỗi nếu cấu hình thủ công thiếu URL hoặc URL sai. Nếu nhà cung cấp tạo URL riêng cho từng PR, lấy URL đã được cấp từ nhà cung cấp rồi đăng ký thủ công hoặc tích hợp đầu ra triển khai của nhà cung cấp.
+
+Preview của PR dùng script từ commit của nhánh đích. Khi nâng cấp một repo đã có `PREVIEW_URL`, tạm bỏ biến này và bật lại sau khi các nhánh đích cần Preview đã có [script triển khai](../../scripts/deployment.mjs).
 
 ---
 
@@ -38,12 +39,11 @@ Quy trình được tự động hóa tại file [.github/workflows/deployments.
 
 ### Cách 2: Triển khai trên Render (Khuyến nghị cho Backend / Fullstack / Docker)
 1. Đăng nhập vào [render.com](https://render.com), tạo mới một Web Service liên kết với repo.
-2. Vào phần **Settings** của Web Service trên Render -> Kéo xuống mục **Deploy Hook**:
-   - Sao chép đường dẫn Deploy Hook (dạng `https://api.render.com/deploy/srv-xxx?key=yyy`).
-3. Trong GitHub repo: Vào **Settings** -> **Secrets and variables** -> **Actions** -> Tab **Secrets**:
-   - Tạo Secret có tên `RENDER_DEPLOY_HOOK` và dán đường dẫn Deploy Hook vào.
-   - Tạo Variable có tên `PRODUCTION_URL` với link web Render (ví dụ: `https://ten-du-an.onrender.com`).
-4. Khi push code lên `main`, GitHub Action sẽ tự động gửi tín hiệu kích hoạt Render build và cập nhật trạng thái deployment trên GitHub.
+2. Trong **Settings** của Web Service trên Render, sao chép Deploy Hook. Lưu dưới tên `RENDER_DEPLOY_HOOK` trong **Settings → Environments → Production → Environment secrets** trên GitHub.
+3. Tạo biến `PRODUCTION_URL` ở cấp repository tại **Settings → Secrets and variables → Actions → Variables**. Điền URL web do Render cấp, ví dụ `https://ten-du-an.onrender.com`.
+4. Job Production gửi yêu cầu đến Render và chỉ ghi URL vào Deployment khi Render trả HTTP 200 hoặc 202. Các mã này cho biết Render đã nhận yêu cầu. Kiểm tra Dashboard Render để xác nhận bản mới đã chạy. [Tài liệu Deploy Hooks của Render](https://render.com/docs/deploy-hooks)
+
+Giới hạn Environment Production vào nhánh `main` trong GitHub. Deploy chạy độc lập với Template CI trên mỗi lần push. Bật các kiểm tra bắt buộc của Template CI trong quy tắc bảo vệ nhánh để chặn PR chưa đạt trước khi merge.
 
 ---
 

@@ -1,6 +1,6 @@
-# Bản Khế Ước Tác Vụ Dành Cho AI Agent (Task Contract Template)
+# Bản khế ước tác vụ
 
-Tài liệu này là hợp đồng giao việc chuẩn mực giữa Người Dùng hoặc Tech Lead và AI Agent. Mọi tác vụ phức tạp trước khi lập trình phải được định nghĩa theo mẫu khế ước này để giới hạn phạm vi, tránh việc AI tự suy diễn hoặc can thiệp vượt thẩm quyền.
+Trước khi triển khai tác vụ phức tạp, ghi mục tiêu, phạm vi và cách nghiệm thu để người thực hiện và người duyệt dùng chung.
 
 ---
 
@@ -8,7 +8,7 @@ Tài liệu này là hợp đồng giao việc chuẩn mực giữa Người Dù
 
 - **Mã tác vụ (Task ID)**: `TASK-001`
 - **Tên tác vụ (Task Title)**: `[Tên ngắn gọn của tính năng hoặc bản sửa lỗi]`
-- **Subagent đảm nhiệm (Assigned Agent)**: `Developer / Architect / QA-Tester / DevOps / UI-UX-Designer`
+- **Người phụ trách** `[Tên hoặc vai trò]`
 - **Độ ưu tiên (Priority)**: `P0 (Khẩn cấp) / P1 (Quan trọng) / P2 (Bình thường)`
 - **Thời điểm khởi tạo**: `YYYY-MM-DD`
 
@@ -23,7 +23,7 @@ Mô tả rõ ràng, ngắn gọn kết quả cần đạt được sau khi hoàn
 
 ## 3. Ngữ Cảnh & Tài Liệu Tham Chiếu (Context & References)
 
-Trước khi thực hiện, Agent bắt buộc phải đọc và tham chiếu các tài liệu sau:
+Liệt kê tài liệu liên quan mà người thực hiện cần đọc trước khi bắt đầu.
 - Yêu cầu nghiệp vụ: `docs/requirements/user-stories-template.md`
 - Thiết kế kiến trúc: `docs/architecture/system-architecture.md`
 - Thiết kế CSDL: `docs/database/database-design.md`
@@ -34,7 +34,7 @@ Trước khi thực hiện, Agent bắt buộc phải đọc và tham chiếu c�
 
 ## 4. Phạm Vi Cho Phép (In Scope)
 
-Chỉ những file và module được liệt kê dưới đây mới được phép tạo mới hoặc chỉnh sửa:
+Liệt kê các file và module được phép sửa. Thay các ví dụ dưới đây bằng phạm vi thực tế.
 - `src/modules/auth/...`
 - `tests/unit/auth/...`
 - `docs/api-spec/openapi-template.yaml`
@@ -43,7 +43,7 @@ Chỉ những file và module được liệt kê dưới đây mới được p
 
 ## 5. Phạm Vi Nghiêm Cấm Can Thiệp (Out of Scope)
 
-Agent TUYỆT ĐỐI KHÔNG được phép chỉnh sửa hoặc gây ảnh hưởng tới các thành phần sau:
+Điền các giới hạn áp dụng cho tác vụ dựa trên những ví dụ dưới đây.
 - Không chỉnh sửa cấu hình hạ tầng CI/CD tại `.github/workflows/`
 - Không thay đổi cấu trúc bảng cơ sở dữ liệu đã chốt khi chưa có xác nhận
 - Không tự ý thêm thư viện ngoài (dependencies) khi chưa được người dùng phê duyệt
@@ -52,7 +52,7 @@ Agent TUYỆT ĐỐI KHÔNG được phép chỉnh sửa hoặc gây ảnh hư�
 
 ## 6. Ràng Buộc Kỹ Thuật (Technical Constraints)
 
-1. **Quy chuẩn Git**: Tuyệt đối không tự ý chạy lệnh `git commit` hoặc `git push`. Chỉ cung cấp gợi ý câu lệnh Git và template commit.
+1. **Quy chuẩn Git**. Người phụ trách rà diff và bàn giao theo [quy trình Git](../standards/git-workflow-and-commit.md). Khi có trợ lý, người dùng thực hiện commit và push.
 2. **Quy chuẩn chú thích**: Mọi ghi chú trong mã nguồn phải viết hoàn toàn bằng tiếng Việt, không dùng dấu ngoặc đơn `()` và không dùng icon trong chú thích.
 3. **Quy chuẩn kiểu dữ liệu**: Bắt buộc định kiểu tĩnh nghiêm ngặt, không dùng kiểu `any` hoặc bỏ qua kiểm tra kiểu.
 4. **Xử lý ngoại lệ**: Xử lý đầy đủ trường hợp biên, giá trị rỗng và lỗi kết nối mạng.
@@ -70,25 +70,24 @@ Agent TUYỆT ĐỐI KHÔNG được phép chỉnh sửa hoặc gây ảnh hư�
 
 ## 8. Lệnh Kiểm Chứng Thực Tế (Verification Commands)
 
-Agent phải chạy thực tế các lệnh sau trong môi trường sandbox và ghi nhận kết quả:
+Liệt kê các lệnh và thao tác phù hợp với stack và phạm vi. Chạy kiểm chứng trong môi trường đã thống nhất và ghi kết quả.
 - Kiểm tra kiểu dữ liệu: `[npm run typecheck / tsc --noEmit / mypy / go vet]`
 - Kiểm tra linter: `[npm run lint / ruff check . / golangci-lint run]`
 - Chạy kiểm thử: `[npm test / pytest / go test ./...]`
+- Build hoặc xác nhận thủ công: `[Lệnh hoặc các bước kiểm tra nếu áp dụng]`
 
 ---
 
 ## 9. Báo Cáo Nghiệm Thu Dựa Trên Bằng Chứng (Evidence-Based Completion Report)
 
-Mọi báo cáo bàn giao của Agent bắt buộc phải có bảng tổng kết sau:
+Dùng bảng sau khi bàn giao. Điền kết quả thực tế và bằng chứng cho từng hạng mục.
 
 | Hạng mục kiểm tra | Trạng thái (PASS / FAIL / NOT RUN) | Bằng chứng thực thi |
 | :--- | :--- | :--- |
-| Build mã nguồn | `PASS` | `Exit code 0, 0 errors` |
-| Linter & Format | `PASS` | `0 warnings, 0 errors` |
-| Unit Tests | `PASS` | `24 passed, 0 failed` |
-| Integration Tests | `NOT RUN` | `Chưa có môi trường CSDL thử nghiệm` |
-| Rà soát bảo mật | `PASS` | `Không phát hiện rò rỉ secret hoặc SQLi` |
+| Build, lint hoặc typecheck | `[Trạng thái]` | `[Lệnh và kết quả, hoặc lý do chưa chạy]` |
+| Kiểm thử hoặc xác nhận thủ công | `[Trạng thái]` | `[Bộ kiểm thử, số ca hoặc các bước đã xác nhận]` |
+| Rà soát bảo mật và tài liệu nếu áp dụng | `[Trạng thái]` | `[Phạm vi đã rà và kết quả]` |
 
 > **Quy định bắt buộc**:
-> - Nếu một bài test chưa được chạy, Agent PHẢI ghi rõ là `NOT RUN`, tuyệt đối không được tự ý ghi `PASS`.
+> - Dùng `NOT RUN` kèm lý do cho bước chưa chạy hoặc không áp dụng. Một kiểm tra bắt buộc theo tiêu chí nghiệm thu cần kết quả `PASS` trước khi hoàn thành tác vụ.
 > - Ghi nhận rõ ràng danh sách vấn đề còn tồn đọng (nếu có) để người dùng nắm bắt trước khi merge.

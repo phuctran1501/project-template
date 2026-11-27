@@ -1,11 +1,1 @@
 blank_issues_enabled: false
-contact_links:
-  - name: 📋 Khế ước tác vụ & Quy trình nhận việc (Task Contract)
-    url: https://github.com/phuctran1501/project-template/blob/main/docs/task/task-contract-template.md
-    about: Đọc bản khế ước tác vụ mẫu trước khi nhận và triển khai nhiệm vụ.
-  - name: ✅ Tiêu chuẩn hoàn thành (Definition of Done)
-    url: https://github.com/phuctran1501/project-template/blob/main/docs/standards/definition-of-done.md
-    about: Kiểm tra tiêu chuẩn DoD trước khi yêu cầu Trưởng nhóm nghiệm thu.
-  - name: 📖 Quy ước vận hành AI Agent (AGENTS.md)
-    url: https://github.com/phuctran1501/project-template/blob/main/AGENTS.md
-    about: Hiến pháp vận hành và quy chuẩn ứng xử của AI Agent trong dự án.

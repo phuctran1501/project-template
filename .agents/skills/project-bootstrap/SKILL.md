@@ -25,7 +25,7 @@ Quy trình thiết lập nền tảng ban đầu cho dự án kế thừa từ `
 2. Nếu các lựa chọn đã được người dùng phê duyệt trước đó, giữ nguyên các mục đã chốt và chỉ hỏi những điểm chưa rõ hoặc cần thay đổi.
 
 ### Bước 2: Khảo sát quyết định của người dùng
-Sử dụng công cụ `ask_question` (hoặc đặt câu hỏi trắc nghiệm ngắn gọn) để người dùng xác nhận:
+Đặt câu hỏi lựa chọn ngắn gọn bằng công cụ của nền tảng hoặc trong cuộc trò chuyện để người dùng xác nhận:
 1. **Cấp độ quy mô dự án (Tailoring Tier)**:
    - **Cấp 1 — Cá nhân / Hackathon (1–2 tuần)**: Chỉ dùng `decision-checklist.md`, `prd-template.md`, `task-contract-template.md`.
    - **Cấp 2 — Đồ án nhóm / MVP (1–3 tháng)**: Bổ sung `system-architecture.md`, `database-design.md`, `openapi-template.yaml`, `DESIGN.md`, GitHub Issues và DoD.
@@ -37,8 +37,8 @@ Sử dụng công cụ `ask_question` (hoặc đặt câu hỏi trắc nghiệm 
 Sau khi người dùng xác nhận:
 1. Ghi nhận đầy đủ lựa chọn, người phê duyệt và ngày phê duyệt vào [decision-checklist.md](../../../docs/techs/decision-checklist.md) (cập nhật thêm [tech-selection-matrix.md](../../../docs/techs/tech-selection-matrix.md) nếu dự án Cấp 2/3 cần giải trình lý do chọn công nghệ).
 2. Nếu có Frontend, cập nhật thông số thương hiệu vào [DESIGN.md](../../../docs/ui-ux/DESIGN.md) và mã màu/typography vào [design-tokens-template.md](../../../docs/ui-ux/design-tokens-template.md).
-3. Cập nhật [.github/workflows/ci.yml](../../../.github/workflows/ci.yml): Mở ghi chú khối ngôn ngữ tương ứng với stack đã chọn khi bắt đầu khởi tạo khung mã nguồn thực tế, đảm bảo chú thích trong YAML viết bằng tiếng Việt không có dấu ngoặc đơn `()` và không có icon.
-4. Kiểm tra [docker-compose.yml](../../../docker-compose.yml), [.env.example](../../../.env.example) và [.codegraph/config.json](../../../.codegraph/config.json) để khớp các dịch vụ CSDL/Cache và đường dẫn thư mục mã nguồn dự kiến (`src/`, `apps/`, `packages/`...).
+3. Khi đã có mã ứng dụng và lệnh kiểm tra thực tế của stack đã duyệt, tạo workflow ứng dụng riêng theo [hướng dẫn CI](../../../scripts/README.md#ci-cho-dự-án-kế-thừa). Duy trì [.github/workflows/ci.yml](../../../.github/workflows/ci.yml) cho Template CI.
+4. Đối chiếu [docker-compose.yml](../../../docker-compose.yml) và [.env.example](../../../.env.example) với dịch vụ đã chọn. Chỉ khởi tạo CodeGraph khi người dùng yêu cầu. Xem [hướng dẫn index](../../../.codegraph/README.md).
 
 ### Bước 4: Kiểm chứng bàn giao
 - Đảm bảo không có bất kỳ lựa chọn công nghệ nào do AI tự điền khi chưa hỏi người dùng.

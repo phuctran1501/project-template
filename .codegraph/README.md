@@ -1,30 +1,10 @@
-# Hướng Dẫn Sử Dụng CodeGraph
+# CodeGraph
 
-Thư mục `.codegraph/` là nơi lưu trữ chỉ mục (index) và cấu hình đồ thị mã nguồn (CodeGraph) của dự án.
+CodeGraph dùng cấu hình mặc định khi lập chỉ mục. Nếu cần tùy chỉnh phạm vi, dùng `.gitignore` hoặc `codegraph.json` tại thư mục gốc theo [tài liệu CodeGraph](https://github.com/colbymchenry/codegraph/blob/v1.6.2/README.md#configuration). Git bỏ qua cơ sở dữ liệu chỉ mục cục bộ.
 
-## 1. Mục Đích Cho AI Agent
-- Giúp AI Agent hiểu chính xác mối quan hệ giữa các hàm, lớp, module và các bước nhảy dispatch động (dynamic dispatch) mà lệnh `grep` hay `find` thông thường không thể nhận biết.
-- Giảm thiểu việc đọc toàn bộ file không cần thiết, tiết kiệm token context window.
+1. Khi nhóm quyết định dùng CodeGraph, cài [CodeGraph](https://github.com/colbymchenry/codegraph), chạy `codegraph init` tại root rồi kiểm tra bằng `codegraph status`.
+2. Với index đã sẵn sàng, ưu tiên `codegraph_explore`. Nếu tool có tham số `projectPath`, truyền đường dẫn tuyệt đối đến root repo. Khi chỉ có CLI, dùng `codegraph explore "<symbol hoặc luồng cần tìm>"`.
+3. Khi MCP báo chưa có index và CLI cũng không dùng được, tìm bằng `rg` rồi đọc file liên quan. Chạy `node scripts/doctor.mjs` ở root để xem điều kiện cục bộ.
+4. Với index đã tạo, dùng `codegraph sync` để cập nhật hoặc `codegraph index` khi cần lập lại toàn bộ.
 
-## 2. Cách Tra Cứu
-
-### Cách 1: Sử dụng Công cụ MCP (Ưu tiên)
-Khi MCP `codegraph` được kích hoạt, Agent gọi trực tiếp tool `codegraph_explore`:
-```json
-{
-  "query": "Tìm hàm xử lý thanh toán và các hàm gọi đến nó"
-}
-```
-
-### Cách 2: Sử dụng Dòng Lệnh Terminal
-Chạy lệnh shell bất kỳ lúc nào:
-```bash
-codegraph explore "<tên_symbol hoặc câu hỏi tra cứu>"
-```
-
-## 3. Tạo / Cập Nhật Lại Chỉ Mục (Re-indexing)
-Khi dự án có nhiều file mã nguồn mới được thêm vào, chạy:
-```bash
-codegraph index .
-```
-Lưu ý: Chỉ mục được sinh tự động và cấu hình qua `config.json`.
+Nếu dùng CodeGraph qua MCP, xem [hướng dẫn dành cho trợ lý đang dùng](../README.md#trợ-lý-ai-tùy-chọn).

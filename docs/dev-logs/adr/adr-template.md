@@ -4,7 +4,7 @@
 **Tiêu đề**: `[Tiêu đề ngắn gọn mô tả quyết định]`  
 **Trạng thái**: `[Đề xuất (Proposed) | Chấp thuận (Accepted) | Bị thay thế (Superseded) | Bác bỏ (Rejected)]`  
 **Ngày quyết định**: `[YYYY-MM-DD]`  
-**Người quyết định**: `[Tech Lead / Nhóm Kỹ Sư / AI Architect]`
+**Người quyết định**: `[Tên người hoặc nhóm phê duyệt]`
 
 ---
 

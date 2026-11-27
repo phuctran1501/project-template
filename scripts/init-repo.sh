@@ -1,87 +1,107 @@
 #!/usr/bin/env bash
-# ==============================================================================
-# Script: init-repo.sh
-# Muc dich: Tu dong khoi tao GitHub repo moi tu template bang GitHub CLI gh
-# Su dung: ./scripts/init-repo.sh -r "my-repo" -v "private"
-# ==============================================================================
 
 set -euo pipefail
 
-REPO_NAME=""
-VISIBILITY="private"
-ORG=""
+usage() {
+  cat <<'HELP'
+Cách dùng: bash scripts/init-repo.sh -r TEN_REPO [-v private|public|internal] [-o TO_CHUC]
+  -n, --dry-run         In kế hoạch mà không gọi GitHub hoặc sửa Git
+  -y, --replace-origin Đồng ý giữ origin cũ dưới tên template-origin-backup
+  -h, --help           Hiện hướng dẫn
+HELP
+}
 
-while getopts "r:v:o:h" opt; do
-  case ${opt} in
-    r ) REPO_NAME="$OPTARG" ;;
-    v ) VISIBILITY="$OPTARG" ;;
-    o ) ORG="$OPTARG" ;;
-    h )
-      echo "Cach dung: $0 -r <repo-name> [-v <private|public>] [-o <org-name>]"
-      exit 0
-      ;;
-    \? )
-      echo "Tham so khong hop le. Dung -h de xem huong dan."
-      exit 1
-      ;;
+fail() {
+  printf '%s\n' "$*" >&2
+  exit 1
+}
+
+repo_name=''
+visibility=private
+org=''
+dry_run=false
+replace_origin=false
+target_remote=template-init-target
+backup_remote=template-origin-backup
+
+while getopts ':r:v:o:nyh-:' option; do
+  case "$option" in
+    r) repo_name="$OPTARG" ;;
+    v) visibility="$OPTARG" ;;
+    o) org="$OPTARG" ;;
+    n) dry_run=true ;;
+    y) replace_origin=true ;;
+    h) usage; exit 0 ;;
+    -)
+      case "$OPTARG" in
+        dry-run) dry_run=true ;;
+        replace-origin) replace_origin=true ;;
+        help) usage; exit 0 ;;
+        *) fail 'Tham số không hợp lệ. Dùng --help để xem hướng dẫn.' ;;
+      esac ;;
+    *) fail 'Tham số không hợp lệ. Dùng --help để xem hướng dẫn.' ;;
   esac
 done
+shift "$((OPTIND - 1))"
+[[ $# -eq 0 ]] || fail 'Tham số không hợp lệ. Dùng --help để xem hướng dẫn.'
 
-echo -e "\033[0;36m=== [1/4] KIEM TRA MOI TRUONG ===\033[0m"
-if ! command -v gh &> /dev/null; then
-    echo -e "\033[0;31mLOI: GitHub CLI gh chua duoc cai dat. Vui long cai dat tu https://cli.github.com/\033[0m"
-    exit 1
+case "$visibility" in
+  private|public|internal) ;;
+  *) fail 'Chế độ hiển thị phải là private, public hoặc internal.' ;;
+esac
+if [[ -z "$repo_name" ]]; then
+  if "$dry_run"; then fail 'Cần -r cho chế độ xem trước.'; fi
+  read -rp 'Nhập tên repository mới: ' repo_name || fail 'Thiếu tên repository.'
+fi
+target="$repo_name"
+if [[ -n "$org" ]]; then target="$org/$repo_name"; fi
+valid_target='^([A-Za-z0-9][A-Za-z0-9-]*/)?[A-Za-z0-9_.][A-Za-z0-9_.-]*$'
+if ! [[ "$target" =~ $valid_target ]] || [[ "$target" == '.' || "$target" == '..' || "$target" == */. || "$target" == */.. ]]; then
+  fail 'Tên repository không hợp lệ.'
 fi
 
-if ! gh auth status &> /dev/null; then
-    echo -e "\033[0;33mChua dang nhap GitHub. Bat dau phien dang nhap...\033[0m"
-    gh auth login
+command -v git >/dev/null || fail 'Cần cài Git.'
+repo_root=$(git rev-parse --show-toplevel) || fail 'Hãy chạy trong Git working tree.'
+remote_names=$(git remote) || fail 'Không đọc được danh sách remote.'
+has_origin=false
+if grep -Fxq origin <<< "$remote_names"; then has_origin=true; fi
+if "$dry_run"; then
+  printf 'Xem trước: tạo %s ở chế độ %s rồi gắn vào origin.\n' "$target" "$visibility"
+  if "$has_origin"; then printf 'Thao tác thật cần xác nhận để lưu origin cũ thành %s.\n' "$backup_remote"; fi
+  exit 0
 fi
 
-echo -e "\033[0;36m=== [2/4] THU THAP THONG TIN DU AN ===\033[0m"
-if [ -z "$REPO_NAME" ]; then
-    read -rp "Nhap ten repository moi: " REPO_NAME
-    if [ -z "$REPO_NAME" ]; then
-        echo -e "\033[0;31mLOI: Ten repository khong duoc de trong.\033[0m"
-        exit 1
-    fi
+if "$has_origin" && ! "$replace_origin"; then
+  read -rp "Lưu origin cũ thành $backup_remote và nối origin với $target? [y/N] " answer || answer=''
+  if [[ "$answer" != [Yy] ]]; then
+    printf '%s\n' 'Đã hủy tạo repository.'
+    exit 0
+  fi
+fi
+if grep -Fxq "$target_remote" <<< "$remote_names" ||
+   { "$has_origin" && grep -Fxq "$backup_remote" <<< "$remote_names"; }; then
+  fail "Remote $target_remote hoặc $backup_remote đã tồn tại. Kiểm tra git remote trước khi thử lại."
 fi
 
-TARGET="$REPO_NAME"
-if [ -n "$ORG" ]; then
-    TARGET="$ORG/$REPO_NAME"
+command -v gh >/dev/null || fail 'Cần cài GitHub CLI.'
+gh auth status >/dev/null 2>&1 || fail 'Hãy đăng nhập bằng gh auth login trước.'
+gh repo create "$target" "--$visibility" "--source=$repo_root" "--remote=$target_remote" || {
+  status=$?
+  printf 'GitHub CLI báo lỗi. Hãy kiểm tra repository trên GitHub và remote %s trước khi thử lại.\n' "$target_remote" >&2
+  exit "$status"
+}
+git remote get-url "$target_remote" >/dev/null ||
+  fail "GitHub CLI không gắn remote $target_remote. Kiểm tra repository mới trên GitHub."
+if "$has_origin"; then
+  git remote rename origin "$backup_remote" ||
+    fail "Không lưu được origin cũ. Repository mới được gắn tại $target_remote."
+fi
+if ! git remote rename "$target_remote" origin; then
+  if "$has_origin" && ! git remote rename "$backup_remote" origin; then
+    fail "Không khôi phục được origin. Kiểm tra các remote $backup_remote và $target_remote."
+  fi
+  fail "Không gắn được origin mới. Repository mới được gắn tại $target_remote."
 fi
 
-# Xu ly remote origin neu da ton tai tu template ban dau
-if git remote get-url origin &> /dev/null; then
-    OLD_REMOTE=$(git remote get-url origin)
-    echo -e "\033[0;33mPhat hien remote origin hien tai: $OLD_REMOTE\033[0m"
-    read -rp "Ban co muon thay the remote origin bang $TARGET khong? Y tren n: " CONFIRM
-    CONFIRM=${CONFIRM:-"Y"}
-    if [[ "$CONFIRM" =~ ^[Yy]$ ]]; then
-        git remote remove origin
-        echo -e "\033[0;32mDa go bo remote cu thanh cong.\033[0m"
-    else
-        echo "Huy thao tac tao repo."
-        exit 0
-    fi
-fi
-
-echo -e "\033[0;36m=== [3/4] TAO REPOSITORY TREN GITHUB ===\033[0m"
-gh repo create "$TARGET" "--$VISIBILITY" --source=. --remote=origin
-
-# Thiet lap ten nhanh mac dinh la main, khong tu y commit hoac push
-git branch -M main 2>/dev/null || true
-
-echo -e "\033[0;32m=== KHOI TAO REPO THANH CONG ===\033[0m"
-echo -e "\033[0;33mTheo quy uoc, he thong khong tu y commit hoac push ma dua ra goi y de ban kiem tra:\033[0m"
-echo ""
-echo "  git add ."
-echo "  git commit -m \"chore: khoi tao du an tu project-template chuan SDLC\""
-echo "  git push -u origin main"
-echo ""
-echo "Cac buoc tiep theo:"
-echo "1. Cap nhat quyet dinh cong nghe: docs/techs/decision-checklist.md"
-echo "2. Khai bao Design Tokens: docs/ui-ux/design-tokens-template.md"
-echo "3. Phan tich yeu cau cung AI: docs/requirements/prd-template.md"
-echo "Repo URL: https://github.com/$TARGET"
+printf '%s\n' 'Đã tạo repository và gắn origin mới. Branch hiện tại được giữ nguyên.'
+printf '%s\n' 'Sau khi kiểm tra thay đổi và tạo commit nếu cần, dùng git push -u origin HEAD.'

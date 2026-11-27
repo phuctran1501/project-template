@@ -2,89 +2,78 @@ name: Deployments Management
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    types: [ opened, synchronize, reopened ]
+    types: [opened, synchronize, reopened]
   workflow_dispatch:
     inputs:
       target_environment:
-        description: 'Chon moi truong can tao Deployment'
+        description: Môi trường cần cập nhật
         required: true
-        default: 'Production'
+        default: Production
         type: choice
-        options:
-          - Production
-          - Preview
+        options: [Production, Preview]
       target_url:
-        description: 'Duong dan URL ban demo tren Vercel hoac Render'
+        description: URL HTTPS của bản triển khai
         required: false
-        default: ''
+        type: string
+
+permissions:
+  contents: read
 
 jobs:
-  # ============================================================================
-  # Cong viec 1: Trien khai va gan link demo cho moi truong Production
-  # ============================================================================
   deploy-production:
-    name: Trien Khai Production Demo
-    if: github.ref == 'refs/heads/main' || (github.event_name == 'workflow_dispatch' && inputs.target_environment == 'Production')
+    name: Production
+    if: >-
+      github.ref == 'refs/heads/main' &&
+      ((github.event_name == 'push' && vars.PRODUCTION_URL != '') ||
+       (github.event_name == 'workflow_dispatch' && inputs.target_environment == 'Production'))
     runs-on: ubuntu-latest
+    timeout-minutes: 5
+    concurrency:
+      group: template-production
+      cancel-in-progress: false
     environment:
       name: Production
-      url: ${{ steps.resolve-url.outputs.deploy_url }}
+      url: ${{ steps.publish.outputs.deploy_url }}
     steps:
-      - name: Tai ma nguon tu repo
-        uses: actions/checkout@v4
-
-      # Kich hoat Render Deploy Hook neu nguoi dung da cau hinh secret
-      - name: Kich hoat trien khai Render neu co
-        if: env.RENDER_HOOK != ''
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Xác thực URL và gửi yêu cầu triển khai
+        id: publish
         env:
-          RENDER_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
-        run: |
-          echo "Dang goi Render Deploy Hook de trien khai ban Production..."
-          curl -s -X POST "$RENDER_HOOK" || true
+          REQUESTED_URL: ${{ inputs.target_url }}
+          CONFIGURED_URL: ${{ vars.PRODUCTION_URL }}
+          RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+        run: node scripts/deployment.mjs
 
-      # Xac dinh duong dan URL demo de hien thi tren widget Deployments cua GitHub
-      - name: Xac dinh duong dan URL Production
-        id: resolve-url
-        run: |
-          if [ -n "${{ inputs.target_url }}" ]; then
-            FINAL_URL="${{ inputs.target_url }}"
-          elif [ -n "${{ vars.PRODUCTION_URL }}" ]; then
-            FINAL_URL="${{ vars.PRODUCTION_URL }}"
-          else
-            # Duong dan mau mac dinh tren Vercel gan voi ten kho ma nguon
-            FINAL_URL="https://${{ github.event.repository.name }}.vercel.app"
-          fi
-          echo "deploy_url=$FINAL_URL" >> $GITHUB_OUTPUT
-          echo "Moi truong Production da duoc kich hoat voi duong dan demo: $FINAL_URL"
-
-  # ============================================================================
-  # Cong viec 2: Trien khai va gan link demo cho moi truong Preview
-  # ============================================================================
   deploy-preview:
-    name: Trien Khai Preview Demo
-    if: github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && inputs.target_environment == 'Preview')
+    name: Preview
+    if: >-
+      (github.event_name == 'pull_request' && vars.PREVIEW_URL != '') ||
+      (github.event_name == 'workflow_dispatch' && inputs.target_environment == 'Preview')
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     environment:
       name: Preview
-      url: ${{ steps.resolve-preview-url.outputs.deploy_url }}
+      url: ${{ steps.publish.outputs.deploy_url }}
     steps:
-      - name: Tai ma nguon tu repo
-        uses: actions/checkout@v4
-
-      # Xac dinh duong dan URL preview cho nhanh hoac PR
-      - name: Xac dinh duong dan URL Preview
-        id: resolve-preview-url
-        run: |
-          if [ -n "${{ inputs.target_url }}" ]; then
-            FINAL_URL="${{ inputs.target_url }}"
-          elif [ -n "${{ vars.PREVIEW_URL }}" ]; then
-            FINAL_URL="${{ vars.PREVIEW_URL }}"
-          elif [ -n "${{ github.event.pull_request.number }}" ]; then
-            FINAL_URL="https://${{ github.event.repository.name }}-pr-${{ github.event.pull_request.number }}.vercel.app"
-          else
-            FINAL_URL="https://${{ github.event.repository.name }}-preview.onrender.com"
-          fi
-          echo "deploy_url=$FINAL_URL" >> $GITHUB_OUTPUT
-          echo "Moi truong Preview da duoc kich hoat voi duong dan demo: $FINAL_URL"
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.event.pull_request.base.sha || github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Xác thực và đăng ký URL
+        id: publish
+        env:
+          REQUESTED_URL: ${{ inputs.target_url }}
+          CONFIGURED_URL: ${{ vars.PREVIEW_URL }}
+        run: node scripts/deployment.mjs

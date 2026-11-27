@@ -29,11 +29,11 @@ Quy trình bắt buộc trước khi kết thúc mọi tác vụ thay đổi mã
 ### Bước 2: Thực thi Build, Linter, Typecheck & Test thực tế
 1. Dựa vào tệp quản lý dự án hiện hữu (`package.json`, `pyproject.toml`, `requirements.txt`, `go.mod`, `*.sln`, `Cargo.toml`), chạy thực tế các lệnh kiểm tra kiểu tĩnh, linter, build và test suite.
 2. Nếu phát hiện lỗi biên dịch, cảnh báo linter mới hoặc bài test thất bại, sửa triệt để và chạy lại trước khi báo cáo.
-3. Nếu kho mã nguồn hiện tại chưa có trình chạy test hoặc chưa khởi tạo code (ví dụ chỉ cập nhật tài liệu Markdown), ghi nhận trung thực là `NOT RUN` kèm lý do cụ thể — **tuyệt đối không ghi `PASS` cho bước chưa chạy**.
+3. Khi sửa template, dùng các lệnh kiểm chứng trong [hướng dẫn script](../../../scripts/README.md#kiểm-chứng-template). Nếu dự án chưa có trình chạy hoặc chưa có mã ứng dụng, báo `NOT RUN` kèm lý do cho các kiểm tra ứng dụng tương ứng.
 
 ### Bước 3: Đối chiếu DoD & Rà soát Bảo mật Độc lập
 1. Rà soát danh mục tại [definition-of-done.md](../../../docs/standards/definition-of-done.md) và [security-checklist.md](../../../docs/standards/security-checklist.md); cập nhật tài liệu liên quan tại `docs/` nếu thay đổi API, Database Schema hoặc kiến trúc.
-2. Nếu thay đổi liên quan đến xác thực (Auth/JWT), phân quyền RBAC, truy vấn SQL, xử lý tệp tải lên hoặc pipeline CI/CD, triệu hồi subagent `security-reviewer` qua `invoke_subagent` để đánh giá độc lập.
+2. Với thay đổi về xác thực, phân quyền, SQL, tải tệp hoặc CI/CD, giao cho vai trò `security-reviewer` mà nền tảng đã nạp để rà soát độc lập. Nếu phiên thiếu subagent, tự rà soát và ghi rõ giới hạn của lượt rà.
 
 ### Bước 4: Xuất Báo cáo Bằng chứng & Gợi ý Commit / PR
 1. Trình bày bảng tổng kết nghiệm thu rõ ràng:

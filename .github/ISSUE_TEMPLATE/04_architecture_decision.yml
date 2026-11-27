@@ -18,35 +18,7 @@ body:
         - "Backend Developer"
         - "Frontend Developer"
         - "DevOps & Cloud Engineer"
-        - "AI Agent (Antigravity / Gemini)"
-    validations:
-      required: true
-
-  - type: input
-    id: timebox
-    attributes:
-      label: Giới hạn thời gian nghiên cứu (Timebox)
-      description: Spike bắt buộc phải có thời hạn tối đa để tránh kéo dài không hồi kết.
-      placeholder: "Ví dụ: 2 ngày làm việc / 16 giờ công / Sprint 3"
-    validations:
-      required: true
-
-  - type: markdown
-    attributes:
-      value: |
-        ### 🔬 Phiếu Giao Nhiệm Vụ Nghiên Cứu Kỹ Thuật (Spike)
-        Nhiệm vụ Spike nhằm giải quyết các điểm chưa chắc chắn về mặt kỹ thuật, thử nghiệm giải pháp (PoC) và so sánh các phương án trước khi đưa vào sản xuất. Mọi kết luận phải được chuẩn hóa thành hồ sơ ADR tại `docs/dev-logs/adr/`.
-
-  - type: dropdown
-    id: assigned_role
-    attributes:
-      label: Thành viên phụ trách nghiên cứu (Assigned Role)
-      options:
-        - "Software Architect"
-        - "Senior Backend Developer"
-        - "Senior Frontend Developer"
-        - "DevOps & Cloud Engineer"
-        - "AI Agent (Antigravity / Gemini)"
+        - "Thành viên dự án hoặc cá nhân"
     validations:
       required: true
 
@@ -95,10 +67,12 @@ body:
     id: deliverables
     attributes:
       label: Sản phẩm bàn giao bắt buộc (Required Deliverables)
+      description: Ghi lệnh thử nghiệm PoC hoặc phương pháp so sánh phù hợp với câu hỏi nghiên cứu.
       value: |
         - [ ] Bản phân tích so sánh ưu / nhược điểm (Trade-offs Matrix).
         - [ ] Mã nguồn PoC thử nghiệm thực tế (nếu cần chứng minh tính khả thi).
         - [ ] Tạo file hồ sơ quyết định kiến trúc mới tại `docs/dev-logs/adr/` theo mẫu `adr-template.md`.
         - [ ] Báo cáo kết quả và đề xuất phương án tối ưu cho Trưởng nhóm phê duyệt.
+        - Lệnh thử nghiệm hoặc phương pháp kiểm chứng
     validations:
       required: true

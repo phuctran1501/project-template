@@ -1,6 +1,6 @@
 # Bản Đặc Tả Ngôn Ngữ Thiết Kế (Impeccable DESIGN.md)
 
-*Bản đặc tả ngôn ngữ thiết kế theo chuẩn Impeccable (pbakaus/impeccable) giúp AI Agent duy trì bản sắc thương hiệu nhất quán qua các phiên làm việc và chống lại các lỗi thiết kế AI rập khuôn (AI slop).*
+*Dùng bản đặc tả này để giữ bản sắc thương hiệu và giao diện nhất quán khi thiết kế, triển khai và rà soát.*
 
 ---
 

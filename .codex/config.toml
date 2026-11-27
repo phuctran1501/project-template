@@ -1,0 +1,7 @@
+[agents]
+max_depth = 1
+
+# Bỏ dấu chú thích khi nhóm đã cài CodeGraph và đồng ý bật máy chủ
+# [mcp_servers.codegraph]
+# command = "codegraph"
+# args = ["serve", "--mcp"]

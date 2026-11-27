@@ -1,91 +1,34 @@
-# Project Template: AI-Native SDLC Framework
+# Project Template
 
-Bộ template chuẩn mực dành cho Tech Lead, Kỹ sư phần mềm và AI Agent Harness. Thiết kế để tối ưu hóa toàn bộ vòng đời phát triển phần mềm (SDLC): **Phân tích -> Thiết kế -> Lập trình -> Kiểm thử -> Triển khai -> Bảo trì**, tương thích hoàn toàn với **Antigravity + Gemini** và sẵn sàng mở rộng sang **Claude**.
+Mẫu quy trình phát triển phần mềm từ yêu cầu đến bàn giao. Người làm trực tiếp và người có trợ lý AI dùng chung tài liệu, tiêu chí nghiệm thu và lệnh kiểm chứng.
 
-> 📖 **Bắt đầu nhanh**: Xem ngay [Hướng Dẫn Sử Dụng (HUONG-DAN-SU-DUNG.md)](HUONG-DAN-SU-DUNG.md)
----
+## Quy trình chung
 
-## 1. Triết Lý Thiết Kế & Quy Chuẩn Cốt Lõi
+1. **Tạo repository và kiểm tra môi trường.** Chọn [tạo trên GitHub hoặc dùng script](HUONG-DAN-SU-DUNG.md#khởi-tạo-dự-án). Chạy `node scripts/doctor.mjs` từ thư mục gốc.
+2. **Chốt quy mô và công nghệ.** Chọn mức tài liệu phù hợp, ghi các quyết định và người phê duyệt vào [checklist công nghệ](docs/techs/decision-checklist.md). Điền [DESIGN.md](docs/ui-ux/DESIGN.md) nếu dự án có giao diện.
+3. **Đặc tả yêu cầu và thiết kế.** Dùng [mẫu PRD](docs/requirements/prd-template.md) và các mẫu kiến trúc, CSDL hoặc API cần thiết cho phạm vi. [Hướng dẫn theo quy mô](HUONG-DAN-SU-DUNG.md#chọn-mức-tài-liệu)
+4. **Giao việc.** Điền [Task Contract](docs/task/task-contract-template.md) hoặc [GitHub Issue](.github/ISSUE_TEMPLATE/) với mục tiêu, phạm vi, tiêu chí nghiệm thu và lệnh kiểm tra.
+5. **Triển khai và kiểm thử.** Đọc tài liệu được dẫn trong tác vụ, sửa trong phạm vi và viết kiểm thử bám tiêu chí nghiệm thu. [Quy chuẩn mã nguồn](docs/standards/coding-standards.md)
+6. **Kiểm chứng và bàn giao.** Chạy các lệnh đã ghi trong tác vụ. Ghi `PASS`, `FAIL` hoặc `NOT RUN` kèm bằng chứng, rồi rà diff theo [Definition of Done](docs/standards/definition-of-done.md) trước khi bàn giao. [Mẫu pull request](.github/pull_request_template.md)
 
-1. **AI-Native Harness**: Có sẵn cấu trúc chỉ dẫn và ngữ cảnh để AI Agents tự động đọc hiểu và thực thi nhiệm vụ mà không bị ảo giác (hallucination).
-2. **Không Quyết Định Thay Người Dùng**: Mọi thông số kiến trúc, ngôn ngữ, công nghệ, thiết kế màu sắc UI đều ở dạng template khảo sát. Người dùng điền thông tin hoặc phê duyệt trước khi AI sinh mã nguồn.
-3. **Không Tự Ý Commit Hay Push Lên GitHub**: AI Agent tuyệt đối không tự ý commit hoặc push code. Agent chỉ cung cấp gợi ý câu lệnh Git, template commit và tên commit chuẩn (Conventional Commits) theo [docs/standards/git-workflow-and-commit.md](docs/standards/git-workflow-and-commit.md) để người dùng tự kiểm tra và thực thi.
-4. **Quy Chuẩn Chú Thích Mã Nguồn (Code Comments)**: Toàn bộ chú thích trong file code phải viết bằng tiếng Việt, tuyệt đối không dùng dấu ngoặc đơn `()` và không dùng icon/emoji.
-5. **Tiết Kiệm Token & Tối Ưu Tự Động Hóa**: Cấu trúc module hóa rõ ràng, tra cứu qua `.codegraph` và tài liệu markdown tinh gọn.
+### Kiểm tra chính template
 
----
-
-## 2. Cấu Trúc Kho Lưu Trữ
+Chạy tại thư mục gốc bằng Node.js 22 trở lên. Xem các yêu cầu Bash, PowerShell, `actionlint` và Gitleaks trong [hướng dẫn kiểm chứng](scripts/README.md#kiểm-chứng-template).
 
 ```text
-├── .agents/                 # Hệ thống tùy biến AI Agent chuẩn Antigravity & Claude
-│   ├── rules/               # Luật vận hành cốt lõi luôn bật (always_on)
-│   ├── agents/              # 6 vai trò: architect, developer, qa-tester, devops, security-reviewer, ui-ux-designer
-│   └── skills/              # 5 quy trình cốt lõi: project-bootstrap, spec-to-architecture, issue-driven-dev, impeccable-ui-workflow, verify-dod-and-pr
-├── .codegraph/              # Cấu hình và hướng dẫn index CodeGraph
-├── .github/                 # GitHub workflows & templates
-│   ├── ISSUE_TEMPLATE/      # Phiếu giao việc từ Lead: Feature, Bug Fix, Technical Task, Spike
-│   ├── workflows/           # CI/CD pipeline & Deployments (Preview/Production)
-│   └── pull_request_template.md
-├── docs/                    # Tài liệu kỹ thuật dự án theo từng giai đoạn
-│   ├── product/             # Tầm nhìn, MVP scope, chỉ số KPI
-│   ├── requirements/        # PRD, User Stories & Acceptance Criteria
-│   ├── techs/               # Ma trận chọn công nghệ & Checklist quyết định
-│   ├── architecture/        # Kiến trúc tổng thể, RBAC, Deployments & Demo links, NFR
-│   ├── diagrams/            # Thư viện sơ đồ mẫu Mermaid (C4, ERD, Sequence)
-│   ├── database/            # Thiết kế CSDL, Data Dictionary, Migration template
-│   ├── api-spec/            # Đặc tả OpenAPI 3.1 & API conventions
-│   ├── ui-ux/               # Design Tokens, User Journey & Chuẩn Impeccable UI/UX (DESIGN.md)
-│   ├── task/                # Phân rã WBS, Task Contract, Sprint Backlog & Checklist
-│   ├── standards/           # Quy chuẩn Clean Code, Security, QA Strategy, Git Commit
-│   ├── ai-integration/      # Kiến trúc tích hợp LLM, Model Router, Fallback
-│   └── dev-logs/            # Nhật ký phát triển hàng ngày & ADR
-├── scripts/                 # Kịch bản tự động hóa khởi tạo repo (PowerShell & Bash)
-├── .editorconfig            # Quy chuẩn định dạng mã nguồn nhất quán cho mọi IDE
-├── .env.example             # Mẫu biến môi trường
-├── .gitleaks.toml           # Cấu hình quét bảo mật Gitleaks loại trừ file mẫu
-├── .gitignore               # Universal gitignore đa ngôn ngữ
-├── docker-compose.yml       # Khởi chạy hạ tầng dịch vụ cục bộ (PostgreSQL, Redis, Mailpit)
-├── AGENTS.md                # Quy ước vận hành trung tâm cho AI Agent
-├── HUONG-DAN-SU-DUNG.md     # Cẩm nang hướng dẫn sử dụng nhanh và quy trình 6 bước
-├── LICENSE                  # Giấy phép MIT
-└── README.md                # Cẩm nang tổng quan của template
+node scripts/doctor.mjs
+node scripts/check-markdown-links.mjs
+node --test scripts/tests/*.test.mjs
 ```
 
----
+Khi dự án đã có mã ứng dụng, bổ sung [CI theo stack đã duyệt](scripts/README.md#ci-cho-dự-án-kế-thừa). Tài liệu triển khai ở [hướng dẫn Deployments](docs/architecture/deployments-and-demo-links.md).
 
-## 3. Hướng Dẫn Khởi Tạo Dự Án Mới (Quickstart)
+Nếu sản phẩm có tính năng dùng LLM, bổ sung thiết kế theo [hướng dẫn tích hợp AI vào sản phẩm](docs/ai-integration/llm-harness-guidelines.md).
 
-### Bước 1: Chạy Script Khởi Tạo Bằng GitHub CLI
+## Trợ lý AI tùy chọn
 
-Template cung cấp 2 script tự động hóa dùng `gh` CLI (không tự ý commit/push mà chỉ tạo repo và gợi ý lệnh commit):
+Dùng cùng [AGENTS.md](AGENTS.md) và Task Contract hoặc Issue khi giao việc. Nếu trợ lý thiếu quyền đọc repo, cung cấp nội dung hướng dẫn và các tệp liên quan. Nếu trợ lý thiếu môi trường chạy lệnh, người thực hiện chạy kiểm chứng và ghi kết quả.
 
-- **Windows (PowerShell)**:
-  ```powershell
-  .\scripts\init-repo.ps1 -RepoName "my-awesome-app" -Visibility "private"
-  ```
-- **Linux / macOS (Bash)**:
-  ```bash
-  chmod +x ./scripts/init-repo.sh
-  ./scripts/init-repo.sh -r "my-awesome-app" -v "private"
-  ```
+> Đọc `AGENTS.md` và Task Contract hoặc Issue tôi gửi. Làm trong phạm vi đã ghi, chạy các lệnh kiểm chứng có thể chạy và báo kết quả kèm bằng chứng.
 
-### Bước 2: Điền Quyết Định Công Nghệ
-
-Mở và điền vào bảng khảo sát tại [docs/techs/decision-checklist.md](docs/techs/decision-checklist.md):
-
-- Ngôn ngữ & Framework (Frontend / Backend)
-- Hệ quản trị CSDL & Caching
-- Bảng màu & Design System Tokens tại [docs/ui-ux/design-tokens-template.md](docs/ui-ux/design-tokens-template.md)
-
-### Bước 3: Giao Tác Vụ Cho AI Agent Bằng Slash Commands
-
-Trong Antigravity + Gemini, các quy trình tại [.agents/skills/](.agents/skills/) hỗ trợ gọi trực tiếp bằng dấu `/` trong ô chat (hoặc tự động kích hoạt khi bạn nhắn bằng ngôn ngữ tự nhiên):
-
-- `/project-bootstrap`: Khảo sát quy mô dự án & chốt Tech Stack Day 0.
-- `/spec-to-architecture`: Viết PRD, User Stories Gherkin, thiết kế DB Schema, OpenAPI & ADR.
-- `/issue-driven-dev`: Tạo hoặc thực thi GitHub Issue (`gh issue view`) kèm kiểm thử.
-- `/impeccable-ui-workflow`: Thiết kế & kiểm toán UI độc bản chuẩn Impeccable (WCAG 2.1 AA).
-- `/verify-dod-and-pr`: Quét quy chuẩn comment tiếng Việt, kiểm chứng DoD và gợi ý commit/PR.
-
-Xem hướng dẫn chi tiết từng bước tại [HUONG-DAN-SU-DUNG.md](HUONG-DAN-SU-DUNG.md) và [AGENTS.md](AGENTS.md).
+Các [skill Markdown](.agents/skills/) có thể mở trực tiếp để theo từng bước. Cách nạp tự động, gọi skill và dùng cấu hình riêng được trình bày tại [Codex](docs/tooling/codex-workflow.md), [Antigravity](docs/tooling/antigravity-workflow.md) và [Claude Code](docs/tooling/claude-code-workflow.md).

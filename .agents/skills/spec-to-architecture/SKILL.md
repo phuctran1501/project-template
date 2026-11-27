@@ -29,7 +29,7 @@ Quy trình chuyển hóa ý tưởng sản phẩm hoặc yêu cầu nghiệp v�
 3. Nếu phát hiện quy tắc nghiệp vụ mâu thuẫn hoặc thiếu luồng ngoại lệ quan trọng, hỏi làm rõ ngay trước khi sang bước thiết kế.
 
 ### Bước 3: Thiết kế Kiến trúc, CSDL & Hợp đồng API
-*(Có thể ủy quyền cho subagent `architect` qua `invoke_subagent` đối với hệ thống lớn)*
+Với hệ thống lớn, có thể phân công phần thiết kế cho vai trò `architect` khi nền tảng hỗ trợ vai trò này.
 
 1. **Kiến trúc & Phân quyền**:
    - Xác định ranh giới module (High Cohesion, Loose Coupling) tại [system-architecture.md](../../../docs/architecture/system-architecture.md).

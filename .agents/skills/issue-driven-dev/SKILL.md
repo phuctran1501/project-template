@@ -35,19 +35,19 @@ Quy trình biến yêu cầu thành phiếu giao việc chuẩn hóa và thực 
 #### Bước 1: Nạp khế ước và khóa phạm vi (Just-In-Time Context)
 1. Nếu có mã Issue `#N`, chạy `gh issue view <N>` để trích xuất Mục tiêu, `References`, `Scope & Boundaries`, `Acceptance Criteria` và `Verification Commands`. (Fallback: nếu `gh` không khả dụng, đọc [task-contract-template.md](../../../docs/task/task-contract-template.md) hoặc nhờ người dùng cung cấp nội dung Issue).
 2. **Chỉ đọc các tài liệu được chỉ định trong `References`** — không nạp toàn bộ thư mục `docs/` gây lãng phí context token.
-3. Xác lập danh sách file `In-Scope` được phép sửa và vùng cấm `Out-of-Scope`. Với tác vụ từ 3 bước trở lên, cập nhật tiến độ qua `update_steps`.
+3. Xác lập danh sách file `In-Scope` được phép sửa và vùng cấm `Out-of-Scope`. Với tác vụ từ 3 bước trở lên, cập nhật tiến độ bằng công cụ lập kế hoạch của nền tảng hoặc trong cuộc trò chuyện.
 
 #### Bước 2: Tra cứu CodeGraph & Kiểm tra gói phụ thuộc
-1. Nếu tồn tại `.codegraph/`, ưu tiên dùng công cụ MCP `codegraph_explore` hoặc chạy `codegraph explore "<tên_symbol hoặc luồng nghiệp vụ>"` trước khi grep/find để nắm chính xác chữ ký hàm và luồng gọi (Fallback: đọc trực tiếp file đích nếu dự án mới chưa có chỉ mục).
+1. Nếu có index CodeGraph, dùng MCP `codegraph_explore` hoặc CLI `codegraph explore` trước khi tìm bằng `rg`. Khi chỉ có cấu hình, thiếu công cụ hoặc tra cứu lỗi, dùng `rg` và đọc file đích.
 2. Trước khi import bất kỳ thư viện nào, bắt buộc kiểm tra file quản lý gói hiện hữu (`package.json`, `requirements.txt`, `pyproject.toml`, `go.mod`, `*.csproj`, `Cargo.toml`). Không tự ý cài thêm thư viện ngoài khi chưa được người dùng đồng ý.
 
 #### Bước 3: Lập trình & Viết kiểm thử
-*(Có thể thực hiện trực tiếp hoặc ủy quyền qua `invoke_subagent` cho `developer`, `devops`, `ui-ux-designer` và `qa-tester`)*
+Thực hiện trực tiếp hoặc phân công theo [hồ sơ vai trò dùng chung](../../agents/).
 1. Hiện thực mã nguồn tuân thủ [coding-standards.md](../../../docs/standards/coding-standards.md):
    - Định kiểu tĩnh nghiêm ngặt, xử lý đầy đủ ngoại lệ và trường hợp biên.
    - Toàn bộ chú thích trong mã nguồn viết hoàn toàn bằng tiếng Việt, **tuyệt đối không dùng dấu ngoặc đơn `()`** và **không dùng icon/emoji**.
 2. Viết hoặc cập nhật Unit / Integration Test bám sát từng mục `Acceptance Criteria` và chiến lược tại [qa-strategy-and-test-plan.md](../../../docs/standards/qa-strategy-and-test-plan.md). Đối với tác vụ sửa lỗi (`fix`), bắt buộc có bài kiểm thử hồi quy tái hiện lỗi đó.
-3. Nếu tạo thêm module hoặc nhiều file mã nguồn mới và môi trường có sẵn CLI `codegraph`, chạy `codegraph index .` để đồng bộ lại chỉ mục.
+3. Nếu dự án đã có index và cần làm mới dữ liệu, dùng `codegraph sync`. Với repo chưa lập chỉ mục, chờ người dùng quyết định khởi tạo CodeGraph.
 
 #### Bước 4: Bàn giao sang cổng kiểm định DoD
 - Không tự tuyên bố hoàn thành ngay sau khi viết xong code. Chuyển tiếp sang quy trình của skill [verify-dod-and-pr](../verify-dod-and-pr/SKILL.md) để chạy kiểm chứng thực tế.

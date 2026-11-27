@@ -1,6 +1,6 @@
 # Ma Trận Đánh Giá & So Sánh Công Nghệ (Tech Selection Matrix)
 
-Tài liệu này cung cấp khung tham chiếu đánh giá ưu/nhược điểm (Trade-offs) giúp Tech Lead và AI Agent đưa ra gợi ý khách quan cho từng loại dự án.
+Tài liệu này cung cấp khung so sánh ưu và nhược điểm của các phương án theo nhu cầu dự án.
 
 ---
 

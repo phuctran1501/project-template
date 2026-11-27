@@ -7,7 +7,7 @@ body:
     attributes:
       value: |
         ### 📋 Phiếu Giao Việc Tính Năng Từ Trưởng Nhóm
-        Thành viên hoặc AI Subagent khi nhận thẻ này cần đọc kỹ tài liệu đặc tả, tuân thủ phạm vi công việc và đáp ứng đầy đủ tiêu chí nghiệm thu trước khi mở Pull Request.
+        Người thực hiện đọc tài liệu đặc tả, tuân thủ phạm vi công việc và kiểm tra tiêu chí nghiệm thu trước khi mở Pull Request. Xem mẫu tại `docs/task/task-contract-template.md` trong repository hiện tại.
 
   - type: dropdown
     id: assigned_role
@@ -21,7 +21,7 @@ body:
         - "UI/UX Designer"
         - "QA & Automation Tester"
         - "DevOps Engineer"
-        - "AI Agent (Antigravity / Gemini)"
+        - "Thành viên dự án hoặc cá nhân"
     validations:
       required: true
 
@@ -50,7 +50,7 @@ body:
     id: references
     attributes:
       label: Tài liệu đặc tả & Ngữ cảnh dự án (Context & References)
-      description: Các tài liệu kỹ thuật thành viên bắt buộc phải đọc trước khi lập trình.
+      description: Giữ các tham chiếu liên quan đến tính năng và điền đường dẫn của dự án hiện tại.
       value: |
         - Yêu cầu nghiệp vụ: docs/requirements/user-stories-template.md
         - Kiến trúc hệ thống: docs/architecture/system-architecture.md
@@ -89,8 +89,8 @@ body:
     id: verification_commands
     attributes:
       label: Lệnh kiểm chứng thực tế (Verification Commands)
-      description: Lệnh thành viên phải chạy cục bộ và đính kèm bằng chứng vào Pull Request.
-      value: |
+      description: Ghi lệnh hoặc thao tác kiểm tra phù hợp với stack và phạm vi tác vụ.
+      placeholder: |
         - Kiểm tra định dạng: npm run lint
         - Kiểm tra kiểu dữ liệu: npm run typecheck
         - Chạy kiểm thử tự động: npm test

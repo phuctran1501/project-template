@@ -1,12 +1,18 @@
 # Quy Chuẩn Git Workflow & Mẫu Gợi Ý Commit (Git Commit Guidelines)
 
-Tài liệu này quy định chuẩn mực quản lý mã nguồn Git dành cho nhóm phát triển và AI Agent Harness.
+Tài liệu này hướng dẫn người thực hiện rà thay đổi, tạo commit và mở pull request.
 
 ---
 
-## 1. Nguyên Tắc Cốt Lõi Dành Cho AI Agent
-- **AI Agent tuyệt đối không tự ý commit hoặc push lên GitHub**.
-- Sau khi tạo hoặc sửa đổi mã nguồn, Agent chỉ đưa ra **gợi ý câu lệnh Git, template commit và tên commit** để người dùng tự xem xét và thực thi.
+## 1. Quy trình bàn giao
+
+1. Kiểm tra `git status --short` và `git diff`. Mở các file mới chưa được theo dõi để rà nội dung và phạm vi.
+2. Chạy các bước kiểm chứng trong Task Contract hoặc Issue. Ghi lệnh, kết quả và lý do của bước chưa chạy theo [Definition of Done](definition-of-done.md).
+3. Dùng `git add -- <tệp>` cho từng tệp thuộc phạm vi. Rà lại nội dung sẽ lên commit bằng `git diff --cached`.
+4. Tạo commit theo quy ước bên dưới. Với nhánh làm việc mới, dùng `git push -u origin HEAD` để đẩy nhánh và thiết lập upstream.
+5. Mở pull request trên GitHub. Chọn đúng nhánh đích và điền phạm vi, bằng chứng kiểm chứng và Issue liên quan theo [mẫu pull request](../../.github/pull_request_template.md).
+
+Khi có trợ lý AI, trợ lý có thể gợi ý tên commit sau khi rà diff. Commit và push do người dùng thực hiện.
 
 ---
 
@@ -35,16 +41,10 @@ Cấu trúc chuẩn:
 
 ---
 
-## 3. Mẫu Gợi Ý Commit Của AI Agent (Commit Suggestion Template)
-
-Khi Agent hoàn thành tác vụ, Agent phải xuất ra gợi ý định dạng như sau:
+## 3. Ví dụ commit
 
 ```text
-Gợi ý lệnh Git cho bạn:
-
-git add <danh sách file>
-git commit -m "feat(auth): them endpoint dang nhap nguoi dung bang email va mat khau"
-git push origin <ten-branch>
+feat(auth): them endpoint dang nhap nguoi dung bang email va mat khau
 ```
 
 ---

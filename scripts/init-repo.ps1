@@ -1,96 +1,99 @@
+﻿#Requires -Version 5.1
+
 <#
 .SYNOPSIS
-    Khoi tao repository GitHub moi tu template nay su dung GitHub CLI gh.
-.DESCRIPTION
-    Kich ban tu dong kiem tra cai dat gh cli, xac thuc tai khoan, xu ly remote git hien tai,
-    tao repository moi tren GitHub va dua ra goi y commit cho nguoi dung.
+    Tạo repository GitHub và gắn origin mới.
 .PARAMETER RepoName
-    Ten repository can tao tren GitHub.
+    Tên repository cần tạo.
 .PARAMETER Visibility
-    Che do hien thi: private mac dinh hoac public hoac internal.
+    Chế độ hiển thị là private, public hoặc internal.
 .PARAMETER Org
-    Tuy chon ten GitHub Organization neu tao trong Org.
-.EXAMPLE
-    .\scripts\init-repo.ps1 -RepoName "ecommerce-api" -Visibility "private"
+    Tổ chức nhận repository.
+.PARAMETER DryRun
+    In kế hoạch mà không gọi GitHub hoặc sửa Git.
+.PARAMETER ReplaceOrigin
+    Đồng ý giữ origin cũ dưới tên template-origin-backup.
+.PARAMETER Help
+    Hiện hướng dẫn.
 #>
 
 [CmdletBinding()]
 param (
-    [Parameter(Mandatory = $false)]
     [string]$RepoName,
-
-    [Parameter(Mandatory = $false)]
-    [ValidateSet("private", "public", "internal")]
-    [string]$Visibility = "private",
-
-    [Parameter(Mandatory = $false)]
-    [string]$Org = ""
+    [ValidateSet('private', 'public', 'internal')]
+    [string]$Visibility = 'private',
+    [string]$Org = '',
+    [switch]$DryRun,
+    [switch]$ReplaceOrigin,
+    [Alias('h')]
+    [switch]$Help
 )
 
-$ErrorActionPreference = "Stop"
+$ErrorActionPreference = 'Stop'
+$PSNativeCommandUseErrorActionPreference = $false
+$targetRemote = 'template-init-target'
+$backupRemote = 'template-origin-backup'
 
-Write-Host "=== [1/4] KIEM TRA MOI TRUONG ===" -ForegroundColor Cyan
-
-if (-not (Get-Command "gh" -ErrorAction SilentlyContinue)) {
-    Write-Error "LOI: GitHub CLI gh chua duoc cai dat. Vui long cai dat tai https://cli.github.com/ hoac chay winget install GitHub.cli"
-    exit 1
+if ($Help) {
+    Get-Help $PSCommandPath -Detailed
+    return
 }
-
-$authStatus = gh auth status 2>&1
-if ($LASTEXITCODE -ne 0) {
-    Write-Warning "Canh bao: Ban chua dang nhap GitHub CLI. Dang mo luong dang nhap..."
-    gh auth login
-}
-
-Write-Host "=== [2/4] THU THAP THONG TIN DU AN ===" -ForegroundColor Cyan
 if ([string]::IsNullOrWhiteSpace($RepoName)) {
-    $RepoName = Read-Host "Nhap ten repository moi - vi du: my-awesome-project"
-    if ([string]::IsNullOrWhiteSpace($RepoName)) {
-        Write-Error "LOI: Ten repository khong duoc de trong."
-        exit 1
+    if ($DryRun) { throw 'Cần -RepoName cho chế độ xem trước.' }
+    $RepoName = Read-Host 'Nhập tên repository mới'
+}
+$target = if ($Org) { "$Org/$RepoName" } else { $RepoName }
+if ($target -cnotmatch '^([A-Za-z0-9][A-Za-z0-9-]*/)?[A-Za-z0-9_.][A-Za-z0-9_.-]*$' -or
+    $target -match '(^|/)\.{1,2}$') {
+    throw 'Tên repository không hợp lệ.'
+}
+
+if (-not (Get-Command git -ErrorAction SilentlyContinue)) { throw 'Cần cài Git.' }
+$repoRoot = git rev-parse --show-toplevel
+if ($LASTEXITCODE -ne 0) { throw 'Hãy chạy trong Git working tree.' }
+$remoteNames = git remote
+if ($LASTEXITCODE -ne 0) { throw 'Không đọc được danh sách remote.' }
+$hasOrigin = $remoteNames -ccontains 'origin'
+if ($DryRun) {
+    Write-Host "Xem trước: tạo $target ở chế độ $Visibility rồi gắn vào origin."
+    if ($hasOrigin) { Write-Host "Thao tác thật cần xác nhận để lưu origin cũ thành $backupRemote." }
+    return
+}
+
+if ($hasOrigin -and -not $ReplaceOrigin) {
+    $answer = Read-Host "Lưu origin cũ thành $backupRemote và nối origin với ${target}? [y/N]"
+    if ($answer -ne 'y') {
+        Write-Host 'Đã hủy tạo repository.'
+        return
     }
 }
+if ($remoteNames -ccontains $targetRemote -or ($hasOrigin -and $remoteNames -ccontains $backupRemote)) {
+    throw "Remote $targetRemote hoặc $backupRemote đã tồn tại. Kiểm tra git remote trước khi thử lại."
+}
 
-$repoTarget = if ([string]::IsNullOrWhiteSpace($Org)) { $RepoName } else { "$Org/$RepoName" }
-
-# Xu ly remote origin neu da ton tai tu template ban dau
-$existingRemote = git remote get-url origin 2>$null
-if ($existingRemote) {
-    Write-Host "Phat hien remote origin hien tai: $existingRemote" -ForegroundColor Yellow
-    $confirm = Read-Host "Ban co muon thay the remote origin bang repository moi $repoTarget khong? Y tren n"
-    if ([string]::IsNullOrWhiteSpace($confirm) -or $confirm -eq "y" -or $confirm -eq "Y") {
-        git remote remove origin
-        Write-Host "Da go bo remote cu thanh cong." -ForegroundColor Green
-    } else {
-        Write-Host "Huy thao tac tao repo theo yeu cau nguoi dung." -ForegroundColor Gray
-        exit 0
+if (-not (Get-Command gh -ErrorAction SilentlyContinue)) { throw 'Cần cài GitHub CLI.' }
+gh auth status *> $null
+if ($LASTEXITCODE -ne 0) { throw 'Hãy đăng nhập bằng gh auth login trước.' }
+gh repo create $target "--$($Visibility.ToLowerInvariant())" "--source=$repoRoot" "--remote=$targetRemote"
+if ($LASTEXITCODE -ne 0) {
+    $status = $LASTEXITCODE
+    Write-Host "GitHub CLI báo lỗi. Hãy kiểm tra repository trên GitHub và remote $targetRemote trước khi thử lại."
+    exit $status
+}
+git remote get-url $targetRemote > $null
+if ($LASTEXITCODE -ne 0) { throw "GitHub CLI không gắn remote $targetRemote. Kiểm tra repository mới trên GitHub." }
+if ($hasOrigin) {
+    git remote rename origin $backupRemote
+    if ($LASTEXITCODE -ne 0) { throw "Không lưu được origin cũ. Repository mới được gắn tại $targetRemote." }
+}
+git remote rename $targetRemote origin
+if ($LASTEXITCODE -ne 0) {
+    if ($hasOrigin) {
+        git remote rename $backupRemote origin
+        if ($LASTEXITCODE -ne 0) { throw "Không khôi phục được origin. Kiểm tra các remote $backupRemote và $targetRemote." }
     }
+    throw "Không gắn được origin mới. Repository mới được gắn tại $targetRemote."
 }
 
-Write-Host "=== [3/4] TAO REPOSITORY TREN GITHUB ===" -ForegroundColor Cyan
-Write-Host "Dang tao repository $repoTarget voi che do $Visibility..." -ForegroundColor Yellow
-
-$ghArgs = @("repo", "create", $repoTarget, "--$Visibility", "--source=.", "--remote=origin")
-gh @ghArgs
-
-if ($LASTEXITCODE -eq 0) {
-    Write-Host "Khoi tao repo tren GitHub thanh cong!" -ForegroundColor Green
-    
-    # Thiet lap ten nhanh chinh la main, khong tu y commit hoac push ma de nguoi dung tu thuc hien
-    git branch -M main 2>$null
-    
-    Write-Host "=== [4/4] GOI Y LENH GIT COMMIT VA BUOC TIEP THEO ===" -ForegroundColor Cyan
-    Write-Host "Theo quy uoc, he thong khong tu y commit hoac push ma dua ra goi y de ban kiem tra:" -ForegroundColor Yellow
-    Write-Host ""
-    Write-Host "  git add ." -ForegroundColor White
-    Write-Host "  git commit -m `"chore: khoi tao du an tu project-template chuan SDLC`"" -ForegroundColor White
-    Write-Host "  git push -u origin main" -ForegroundColor White
-    Write-Host ""
-    Write-Host "Cac buoc thiet lap du an tiep theo:" -ForegroundColor Cyan
-    Write-Host "1. Mo file docs/techs/decision-checklist.md de chon Tech Stack." -ForegroundColor White
-    Write-Host "2. Mo file docs/ui-ux/design-tokens-template.md de xac dinh mau sac va phong chu." -ForegroundColor White
-    Write-Host "3. Goi AI Agent thuc hien phan tich yeu cau tai docs/requirements/prd-template.md." -ForegroundColor White
-    Write-Host "Link kho ma nguon: https://github.com/$repoTarget" -ForegroundColor Green
-} else {
-    Write-Error "LOI: Khong the tao repo tren GitHub. Vui long kiem tra quyen han hoac ten repo da ton tai."
-}
+Write-Host 'Đã tạo repository và gắn origin mới. Branch hiện tại được giữ nguyên.'
+Write-Host 'Sau khi kiểm tra thay đổi và tạo commit nếu cần, dùng git push -u origin HEAD.'

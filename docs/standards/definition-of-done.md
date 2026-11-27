@@ -1,6 +1,6 @@
 # Tiêu Chuẩn Hoàn Thành (Definition of Done - DoD)
 
-Một Task hoặc Pull Request chỉ được tính là **DONE** khi đáp ứng đầy đủ tất cả các điều kiện sau:
+Một Task hoặc Pull Request đạt **DONE** khi đáp ứng các tiêu chí nghiệm thu và các mục DoD áp dụng cho thay đổi. Dùng Task Contract hoặc Issue để ghi rõ phạm vi kiểm chứng.
 
 ---
 
@@ -15,7 +15,7 @@ Một Task hoặc Pull Request chỉ được tính là **DONE** khi đáp ứng
 ## 2. Về Mặt Kiểm Thử (Testing & Verification)
 - [ ] Tất cả Unit Test và Integration Test hiện có đều vượt qua (100% Green).
 - [ ] Đã bổ sung test cases mới cho tính năng/bugfix vừa hiện thực.
-- [ ] Độ bao phủ mã nguồn (Code Coverage) đạt tối thiểu `80%` trên tầng Domain/Business Logic.
+- [ ] Khi thay đổi tầng Domain/Business Logic, độ bao phủ kiểm thử đạt tối thiểu `80%`.
 - [ ] Đã kiểm thử các kịch bản biên (Edge cases, Null/Empty values, Boundary numbers).
 
 ---
@@ -31,12 +31,11 @@ Một Task hoặc Pull Request chỉ được tính là **DONE** khi đáp ứng
 - [ ] Cập nhật đặc tả API tại `docs/api-spec/openapi-template.yaml` nếu có endpoint mới hoặc đổi schema.
 - [ ] Cập nhật tài liệu CSDL tại `docs/database/` nếu có migration.
 - [ ] Ghi lại quyết định kiến trúc tại `docs/dev-logs/adr/` nếu có thay đổi kỹ thuật quan trọng.
-- [ ] Ghi nhật ký công việc vào `docs/dev-logs/daily-log-template.md`.
+- [ ] Khi cần lưu dấu công việc, tạo nhật ký tại `docs/dev-logs/` theo [mẫu nhật ký](../dev-logs/daily-log-template.md).
 
 ---
 
 ## 5. Về Mặt Bằng Chứng Nghiệm Thu (Evidence-Based Verification)
-- [ ] Đã chạy lệnh build thực tế và ghi nhận kết quả: PASS.
-- [ ] Đã chạy linter và typecheck thực tế và ghi nhận kết quả: PASS.
-- [ ] Đã chạy test suite thực tế và ghi nhận kết quả: PASS kèm log thực thi.
-- [ ] Liệt kê rõ các bài test chưa chạy là NOT RUN, tuyệt đối không ngầm hiểu là PASS.
+- [ ] Chạy build, lint, typecheck, test hoặc xác nhận thủ công theo các yêu cầu áp dụng.
+- [ ] Ghi `PASS` hoặc `FAIL` kèm đầu ra thực tế và ghi `NOT RUN` kèm lý do cho bước chưa chạy hoặc không áp dụng.
+- [ ] Mọi kiểm tra bắt buộc theo tiêu chí nghiệm thu có kết quả `PASS`. Ví dụ, khi đổi liên kết tài liệu, chạy kiểm tra liên kết. Nếu tác vụ chưa có mã ứng dụng để build, ghi lý do ở mục build.

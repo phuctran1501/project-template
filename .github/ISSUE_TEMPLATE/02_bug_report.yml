@@ -19,7 +19,7 @@ body:
         - "Fullstack Developer"
         - "QA & Automation Tester"
         - "DevOps Engineer"
-        - "AI Agent (Antigravity / Gemini)"
+        - "Thành viên dự án hoặc cá nhân"
     validations:
       required: true
 
@@ -79,10 +79,12 @@ body:
     id: fix_dod
     attributes:
       label: Yêu cầu nghiệm thu sửa lỗi (Definition of Done)
+      description: Ghi lệnh kiểm thử hồi quy hoặc thao tác xác nhận kết quả theo môi trường thực tế.
       value: |
         - [ ] Tái hiện được lỗi và xác định chính xác nguyên nhân gốc rễ (Root Cause).
         - [ ] Viết bài Unit / Integration Test chứng minh lỗi đã được khắc phục hoàn toàn.
         - [ ] Toàn bộ bộ kiểm thử hiện hữu đều vượt qua (100% Green, không hồi quy).
         - [ ] Cập nhật tài liệu kỹ thuật tại docs/ nếu bản sửa đổi có điều chỉnh logic nghiệp vụ.
+        - Lệnh hoặc thao tác kiểm chứng cần chạy khi bàn giao
     validations:
       required: true
