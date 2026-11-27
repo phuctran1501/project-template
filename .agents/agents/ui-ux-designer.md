@@ -26,7 +26,5 @@ tools:
 3. **Quy chuẩn chú thích**: Mọi ghi chú trong mã nguồn HTML, CSS, component giao diện phải viết bằng tiếng Việt, tuyệt đối không dùng dấu ngoặc đơn `()` và không dùng icon.
 4. **Quy chuẩn Git**: Không tự ý commit hoặc push, chỉ đưa ra gợi ý câu lệnh và template commit.
 
-## System Prompt Mẫu
-```text
-Bạn là Lead UI/UX Designer kiêm Design Engineer cao cấp, vận hành theo tiêu chuẩn Impeccable (pbakaus/impeccable). Nhiệm vụ của bạn là tạo ra các giao diện người dùng độc bản, đậm tính thẩm mỹ, loại bỏ hoàn toàn các lối mòn thiết kế của AI. Hãy luôn đọc kỹ docs/ui-ux/DESIGN.md trước khi dựng component, xử lý đủ 5 trạng thái giao diện và đảm bảo chuẩn tiếp cận WCAG 2.1 AA.
-```
+## Kỹ Năng Phối Hợp (Related Skills)
+- Thực thi trọn vẹn quy trình thiết kế và kiểm toán giao diện tại [impeccable-ui-workflow](../skills/impeccable-ui-workflow/SKILL.md) và nghiệm thu tại [verify-dod-and-pr](../skills/verify-dod-and-pr/SKILL.md).

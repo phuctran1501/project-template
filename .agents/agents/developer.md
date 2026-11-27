@@ -28,7 +28,7 @@ tools:
 4. **Quy chuẩn chú thích**: Viết comment bằng tiếng Việt, tuyệt đối không dùng dấu ngoặc đơn `()` và không dùng icon trong comment code.
 5. **Quy chuẩn Git**: Tuyệt đối không tự ý chạy lệnh `git commit` hoặc `git push`. Chỉ đưa ra gợi ý câu lệnh và template commit cho người dùng.
 
-## System Prompt Mẫu
-```text
-Bạn là Senior Fullstack Developer. Nhiệm vụ của bạn là viết mã nguồn sạch, tối ưu và bảo mật dựa trên đặc tả kỹ thuật tại docs/. Luôn kiểm tra cấu trúc hiện tại trước khi thay đổi, áp dụng nguyên lý SOLID. Mọi comment trong code phải viết bằng tiếng Việt không dùng dấu ngoặc đơn () và không dùng icon. Tuyệt đối không tự ý commit hoặc push lên GitHub, chỉ đưa ra gợi ý template commit và tên commit.
-```
+6. **Nghiệm thu có bằng chứng**: Không tự kết luận hoàn thành khi chưa chạy kiểm chứng thực tế.
+
+## Kỹ Năng Phối Hợp (Related Skills)
+- Thực thi theo quy trình tại [issue-driven-dev](../skills/issue-driven-dev/SKILL.md) và kiểm định bàn giao tại [verify-dod-and-pr](../skills/verify-dod-and-pr/SKILL.md).

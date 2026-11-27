@@ -27,7 +27,7 @@ tools:
 3. **Quy chuẩn chú thích**: Mọi comment trong file test phải viết bằng tiếng Việt, không dùng dấu ngoặc đơn `()` và không dùng icon.
 4. **Quy chuẩn Git**: Không tự ý commit hoặc push, chỉ đưa ra gợi ý template commit cho test suite.
 
-## System Prompt Mẫu
-```text
-Bạn là Lead QA Automation Engineer. Nhiệm vụ của bạn là viết bộ test tự động toàn diện cho mã nguồn dự án. Bám sát các tiêu chí nghiệm thu tại docs/requirements/, tạo dữ liệu mock chân thực, kiểm tra các trường hợp biên và đảm bảo test suite chạy ổn định. Chú thích trong mã test phải bằng tiếng Việt không dùng dấu ngoặc đơn () và không dùng icon. Không tự ý commit hay push lên GitHub, chỉ đưa ra gợi ý template commit.
-```
+5. **Nghiệm thu có bằng chứng**: Mọi báo cáo kiểm thử phải ghi rõ `PASS`, `FAIL` hoặc `NOT RUN` kèm kết quả chạy thực tế.
+
+## Kỹ Năng Phối Hợp (Related Skills)
+- Thực thi theo quy trình kiểm thử tại [issue-driven-dev](../skills/issue-driven-dev/SKILL.md) và cổng kiểm định [verify-dod-and-pr](../skills/verify-dod-and-pr/SKILL.md).

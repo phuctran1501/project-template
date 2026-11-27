@@ -1,137 +1,125 @@
 # Cẩm Nang Hướng Dẫn Sử Dụng `project-template`
 
-Tài liệu hướng dẫn nhanh, đầy đủ và đúng trọng tâm dành cho **Tech Lead, Lập trình viên và AI Agent** khi khởi tạo và vận hành một dự án phần mềm mới từ template này.
+Tài liệu hướng dẫn nhanh, đầy đủ và đúng trọng tâm dành cho **Tech Lead, Lập trình viên và AI Agent** khi khởi tạo và vận hành dự án phần mềm mới (cá nhân hoặc đồ án nhóm) trên nền tảng **Google Antigravity + Gemini** (sẵn sàng mở rộng sang **Claude**).
 
 ---
 
-## 1. Tổng Quan Về Template
+## 1. Tổng Quan & 4 Quy Tắc Cốt Lõi
 
-Template này là bộ khung làm việc chuẩn mực cho quy trình phát triển phần mềm có AI hỗ trợ (**AI-Native SDLC**), tương thích tối ưu với **Google Antigravity + Gemini** và sẵn sàng mở rộng sang **Claude**.
-
-### 4 Quy Tắc Cốt Lõi Bắt Buộc Nhớ:
-1. **Không tự tiện quyết định thay người dùng**: Mọi thông số về ngôn ngữ, framework, kiến trúc và màu sắc UI phải do người dùng chốt trước tại `docs/techs/` và `docs/ui-ux/`.
-2. **Không tự ý commit hay push**: AI Agent tuyệt đối không tự chạy `git commit` hoặc `git push`, chỉ cung cấp lệnh và tên commit chuẩn (Conventional Commits) để người dùng duyệt.
-3. **Quy chuẩn chú thích trong mã nguồn**: Toàn bộ comment trong code phải viết bằng tiếng Việt, tuyệt đối không dùng dấu ngoặc đơn `()` và không dùng icon.
-4. **Nghiệm thu dựa trên bằng chứng (Evidence-Based Completion)**: Không tự kết luận PASS nếu chưa chạy lệnh test/lint thực tế.
+1. **Không tự tiện quyết định thay người dùng**: Ngôn ngữ, framework, kiến trúc và màu sắc UI phải do người dùng chốt tại [docs/techs/decision-checklist.md](docs/techs/decision-checklist.md) và [docs/ui-ux/DESIGN.md](docs/ui-ux/DESIGN.md).
+2. **Không tự ý commit hay push**: AI Agent tuyệt đối không tự chạy `git commit` hoặc `git push`, chỉ gợi ý câu lệnh và tên commit chuẩn Conventional Commits để người dùng duyệt.
+3. **Quy chuẩn chú thích trong mã nguồn**: Toàn bộ comment trong code phải viết bằng tiếng Việt, tuyệt đối không dùng dấu ngoặc đơn `()` và không dùng icon/emoji.
+4. **Nghiệm thu dựa trên bằng chứng (Evidence-Based Completion)**: Không tự kết luận `PASS` nếu chưa chạy lệnh build/lint/test thực tế; bước chưa chạy phải ghi rõ `NOT RUN`.
 
 ---
 
-## 2. Quy Trình Khởi Tạo Dự Án Mới (Day 0)
+## 2. Tinh Gọn Tài Liệu Theo Quy Mô Dự Án (Tailoring Guide)
 
-### Bước 1: Khởi Tạo Repository Mới
-Sử dụng kịch bản tự động hóa trong thư mục `scripts/` để tạo repo GitHub mới và đổi remote:
+Bạn **không cần điền toàn bộ thư mục `docs/` ngay từ đầu**. Hãy chọn cấp độ phù hợp để tránh ngợp tài liệu:
 
-- **Trên Windows (PowerShell)**:
+| Cấp độ dự án | Quy mô gợi ý | Tài liệu cốt lõi cần dùng | Phần có thể bỏ qua hoặc làm sau |
+| :--- | :--- | :--- | :--- |
+| **Cấp 1: Cá nhân / Hackathon** | 1 người, 1–2 tuần | `decision-checklist.md`, `prd-template.md`, `task-contract-template.md` + Mã nguồn & Test | Sơ đồ C4 chi tiết, RBAC Matrix, ADR, NFR nâng cao |
+| **Cấp 2: Đồ án nhóm / MVP** | 3–5 người, 1–3 tháng | Toàn bộ Cấp 1 + `system-architecture.md`, `database-design.md`, `openapi-template.yaml`, `DESIGN.md`, GitHub Issues & DoD | Kiểm toán hiệu năng tải lớn, NFR cấp doanh nghiệp |
+| **Cấp 3: Sản phẩm lớn / Enterprise** | Nhóm lớn, dài hạn | Kích hoạt đầy đủ 100% tài liệu kiến trúc, ADR, RBAC, Security Checklist, QA Strategy, Deployments | Không bỏ qua bước nào |
+
+---
+
+## 3. Khởi Tạo Dự Án Mới (Day 0)
+
+### Bước 1: Tạo Repository Mới Bằng Script
+- **Windows (PowerShell)**:
   ```powershell
   Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
   .\scripts\init-repo.ps1 -RepoName "ten-du-an-moi" -Visibility "private"
   ```
-- **Trên Linux / macOS (Bash)**:
+- **Linux / macOS (Bash)**:
   ```bash
   chmod +x ./scripts/init-repo.sh
   ./scripts/init-repo.sh -r "ten-du-an-moi" -v "private"
   ```
 
-### Bước 2: Chốt Ngôn Ngữ & Công Nghệ
-Mở file [docs/techs/decision-checklist.md](docs/techs/decision-checklist.md) và tích chọn công nghệ bạn muốn dùng:
-- Ngôn ngữ & Framework (Node.js/TypeScript, Python, Go, C# .NET...)
-- Cơ sở dữ liệu (PostgreSQL, MySQL, MongoDB...) & Cache (Redis)
-- Khai báo biến môi trường: Sao chép `.env.example` thành `.env` và điền khóa bí mật.
+### Bước 2: Chốt Công Nghệ Bằng Lệnh `/project-bootstrap`
+Mở khung chat trong Antigravity và gõ trực tiếp lệnh:
+```text
+/project-bootstrap
+```
+*(Hoặc nhắn bằng ngôn ngữ tự nhiên: "Hãy khởi tạo cấu hình dự án mới giúp tôi")*.
 
-### Bước 3: Định Hình Bản Sắc UI/UX
-Nếu dự án có giao diện người dùng, mở file [docs/ui-ux/DESIGN.md](docs/ui-ux/DESIGN.md) và [docs/ui-ux/design-tokens-template.md](docs/ui-ux/design-tokens-template.md) để thiết lập:
-- Phong cách thẩm mỹ (Brand Persona) và cặp font chữ.
-- Bảng màu chủ đạo Light/Dark Mode (loại bỏ màu gradient tím xanh AI rập khuôn).
+AI sẽ khảo sát bạn chọn cấp độ dự án, Tech Stack, định hướng UI/UX, rồi đồng bộ vào `decision-checklist.md`, `DESIGN.md` và `.github/workflows/ci.yml`. Sau đó bạn chỉ cần sao chép `.env.example` thành `.env` để điền khóa bí mật cục bộ.
 
 ---
 
-## 3. Quy Trình Vận Hành Phát Triển (6 Bước SDLC)
+## 4. Hệ Thống Tự Động Hóa `.agents/` Trong Antigravity
+
+Không cần copy-paste prompt thủ công — Antigravity tự động nhận diện **Rules**, **Agents** và **Skills** ngay trong kho mã nguồn:
+
+### 4.1. Bộ 5 Skills Cốt Lõi & Lệnh Slash Commands (`.agents/skills/`)
+Trong Antigravity (và tương thích khi mở rộng sang Claude Code), mỗi Skill tại `.agents/skills/<tên-skill>/SKILL.md` hỗ trợ **2 cơ chế kích hoạt**:
+1. **Gọi tường minh bằng Slash Command `/<tên-skill>`** *(Khuyên dùng)*: Gõ dấu `/` trong ô chat để mở menu gợi ý và chỉ định đích danh quy trình cần chạy kèm yêu cầu.
+2. **Kích hoạt tự động theo ngữ cảnh (Semantic Discovery)**: Antigravity chỉ nạp sẵn tên + mô tả ngắn để tiết kiệm token, và tự mở `SKILL.md` khi câu nhắn tự nhiên của bạn khớp nhiệm vụ.
+
+| Lệnh gọi nhanh (Slash Command) | File Skill | Mục đích & Ví dụ sử dụng thực tế |
+| :--- | :--- | :--- |
+| `/project-bootstrap` | [`SKILL.md`](.agents/skills/project-bootstrap/SKILL.md) | Khảo sát quy mô & Tech Stack Day 0, đồng bộ cấu hình CI/CD & UI.<br>*VD:* `/project-bootstrap Khởi tạo đồ án nhóm quản lý bán hàng` |
+| `/spec-to-architecture` | [`SKILL.md`](.agents/skills/spec-to-architecture/SKILL.md) | Viết PRD, User Stories Gherkin, thiết kế Kiến trúc, CSDL, OpenAPI & ADR.<br>*VD:* `/spec-to-architecture Phân tích và thiết kế phân hệ Đặt hàng` |
+| `/issue-driven-dev` | [`SKILL.md`](.agents/skills/issue-driven-dev/SKILL.md) | Tạo GitHub Issues giao việc hoặc đọc `gh issue view <id>`, tra cứu CodeGraph và lập trình.<br>*VD:* `/issue-driven-dev Đọc và thực hiện Issue #12` |
+| `/impeccable-ui-workflow` | [`SKILL.md`](.agents/skills/impeccable-ui-workflow/SKILL.md) | Dựng và kiểm toán UI độc bản chuẩn Impeccable, đạt WCAG 2.1 AA.<br>*VD:* `/impeccable-ui-workflow craft màn hình Dashboard quản trị` |
+| `/verify-dod-and-pr` | [`SKILL.md`](.agents/skills/verify-dod-and-pr/SKILL.md) | Quét luật comment tiếng Việt, chạy lint/test thực tế và gợi ý commit / PR.<br>*VD:* `/verify-dod-and-pr Kiểm tra toàn bộ thay đổi cho Issue #12` |
+
+### 4.2. Đội Ngũ 6 Custom Subagents (`.agents/agents/`)
+Khi tác vụ lớn cần tách ngữ cảnh độc lập, Agent chính tự động ủy quyền qua `invoke_subagent` cho:
+- **`architect`** ([architect.md](.agents/agents/architect.md)): Kiến trúc hệ thống, lược đồ CSDL, OpenAPI và ADR.
+- **`developer`** ([developer.md](.agents/agents/developer.md)): Lập trình nghiệp vụ Backend/Frontend sạch, an toàn kiểu tĩnh.
+- **`ui-ux-designer`** ([ui-ux-designer.md](.agents/agents/ui-ux-designer.md)): Thiết kế giao diện độc bản, chống AI tells, đủ 5 trạng thái UI.
+- **`qa-tester`** ([qa-tester.md](.agents/agents/qa-tester.md)): Viết Unit/Integration Test bao phủ biên và kiểm thử hồi quy.
+- **`devops`** ([devops.md](.agents/agents/devops.md)): Cấu hình Docker, `docker-compose.yml`, GitHub Actions và Deployments.
+- **`security-reviewer`** ([security-reviewer.md](.agents/agents/security-reviewer.md)): Rà soát độc lập OWASP Top 10 và rò rỉ bí mật trên PR diff *(chế độ chỉ đọc + chạy lệnh kiểm tra)*.
+
+---
+
+## 5. Luồng Làm Việc 6 Bước Chuẩn SDLC
 
 ```mermaid
 flowchart LR
-    A["1. Phân Tích (PRD)"] --> B["2. Thiết Kế (Spec & Architecture)"]
-    B --> C["3. Giao Việc (Issue & Contract)"]
-    C --> D["4. Lập Trình (.agents)"]
-    D --> E["5. Kiểm Thử (DoD & Evidence)"]
-    E --> F["6. Review & Deploy"]
+    A["1. Phân Tích (/spec-to-architecture)"] --> B["2. Thiết Kế (DB & API)"]
+    B --> C["3. Giao Việc (Issue / Contract)"]
+    C --> D["4. Lập Trình (/issue-driven-dev)"]
+    D --> E["5. Kiểm Chứng (/verify-dod-and-pr)"]
+    E --> F["6. Mở PR & Deploy Demo"]
 ```
 
-### Bước 1: Phân Tích Yêu Cầu (Analysis)
-- Soạn thảo tài liệu yêu cầu sản phẩm tại [docs/requirements/prd-template.md](docs/requirements/prd-template.md).
-- Chuyển hóa thành các User Stories có tiêu chí nghiệm thu rõ ràng tại [docs/requirements/user-stories-template.md](docs/requirements/user-stories-template.md).
-
-### Bước 2: Thiết Kế Kỹ Thuật (Design)
-- **Kiến trúc hệ thống**: Lập tài liệu tại [docs/architecture/system-architecture.md](docs/architecture/system-architecture.md).
-- **Lược đồ CSDL**: Viết thiết kế bảng tại [docs/database/database-design.md](docs/database/database-design.md) và SQL schema mẫu tại [docs/database/schema-template.sql](docs/database/schema-template.sql).
-- **Đặc tả API**: Khai báo endpoint theo chuẩn OpenAPI 3.1 tại [docs/api-spec/openapi-template.yaml](docs/api-spec/openapi-template.yaml).
-
-### Bước 3: Giao Việc & Lập Kế Hoạch (Task Planning)
-- **Trưởng nhóm giao việc qua GitHub Issues**: Sử dụng các form mẫu chuẩn hóa tại tab **Issues** -> **New Issue**:
-  - `🚀 Giao việc tính năng`: Giao User Story cho thành viên/AI kèm phạm vi và tiêu chí nghiệm thu.
-  - `🐛 Giao việc sửa lỗi`: Giao lỗi cần fix kèm log, stacktrace và yêu cầu test hồi quy.
-  - `⚙️ Nhiệm vụ kỹ thuật`: Giao việc cấu hình CI/CD, Docker, refactor hoặc migration CSDL.
-  - `📐 Nghiên cứu kỹ thuật`: Giao tác vụ Spike nghiên cứu công nghệ mới kèm thời hạn timebox.
-
-- **Cơ chế AI đọc Issue và biến Issue thành Implementation Plan**:
-  - **Cách AI đọc Issue**: Khi bạn tạo Issue (ví dụ: `Issue #12`), bạn chỉ cần nhắn:
-    > *"Hãy đọc Issue #12 và lập kế hoạch thực hiện"*
-    AI Agent sẽ tự động chạy lệnh `gh issue view 12` thông qua GitHub CLI để trích xuất toàn bộ yêu cầu mà bạn đã điền.
-  - **Tại sao Issue được AI xem là một Bản Kế Hoạch hoàn hảo?**
-    1. *Khóa ngữ cảnh (Context Locking)*: AI chỉ đọc đúng các file đặc tả được liệt kê tại mục `References`.
-    2. *Khóa phạm vi (Scope & Boundaries)*: Ngăn chặn triệt để tình trạng AI tự ý sửa các file ngoài thẩm quyền.
-    3. *Danh mục thực thi (Acceptance Criteria)*: AI sử dụng các tiêu chí nghiệm thu làm checklist code từng bước.
-    4. *Kế hoạch kiểm chứng (Verification Commands)*: AI lấy các lệnh test bạn yêu cầu để tự chạy thực tế trong terminal.
-- **Lập khế ước tác vụ (Task Contract)**: Với các task phức tạp cần chia nhỏ, điền thêm vào [docs/task/task-contract-template.md](docs/task/task-contract-template.md) để bàn giao giữa các Subagent.
-
-### Bước 4: Lập Trình Với AI Subagents (Coding)
-Tận dụng 6 tác tử chuyên môn hóa tại thư mục [.agents/agents/](.agents/agents/):
-- **`architect`**: Hỗ trợ thiết kế kiến trúc, phân rã module và API contracts.
-- **`developer`**: Viết mã nguồn nghiệp vụ theo đúng Clean Architecture và quy chuẩn coding.
-- **`ui-ux-designer`**: Thiết kế giao diện độc bản theo chuẩn Impeccable, hỗ trợ các lệnh `/impeccable craft`, `audit`, `polish`.
-- **`qa-tester`**: Viết test tự động (Unit, Integration) bám sát Acceptance Criteria.
-- **`devops`**: Cấu hình Docker, docker-compose.yml và pipeline GitHub Actions.
-- **`security-reviewer`**: Rà soát bảo mật độc lập trước khi mở PR.
-
-*Mẹo: Luôn yêu cầu AI tra cứu cấu trúc mã qua `.codegraph` trước khi chỉnh sửa file.*
-
-### Bước 5: Kiểm Thử & Nghiệm Thu Dựa Trên Bằng Chứng (Testing)
-Trước khi kết luận hoàn thành, bắt buộc phải chạy lệnh kiểm chứng thực tế trong terminal:
-```bash
-# 1. Kiểm tra linter và định dạng
-npm run lint
-
-# 2. Kiểm tra an toàn kiểu dữ liệu
-npm run typecheck
-
-# 3. Chạy toàn bộ bài kiểm thử
-npm test
-```
-- Phân định rõ ràng trong báo cáo: `PASS` (vượt qua), `FAIL` (thất bại), `NOT RUN` (chưa chạy).
-- Đáp ứng đầy đủ tiêu chuẩn hoàn thành tại [docs/standards/definition-of-done.md](docs/standards/definition-of-done.md).
-
-### Bước 6: Mở Pull Request & Triển Khai (Review & Deploy)
-- Mở PR trên GitHub theo biểu mẫu [.github/pull_request_template.md](.github/pull_request_template.md) (gắn kèm dòng `Closes #<số_issue>` để GitHub tự động đóng thẻ công việc khi hoàn thành).
-- Pipeline CI tại [.github/workflows/ci.yml](.github/workflows/ci.yml) sẽ tự động chạy quét bảo mật Gitleaks và kiểm thử.
-- Gắn link demo Vercel hoặc Render vào widget **Deployments** (xem hướng dẫn tại [docs/architecture/deployments-and-demo-links.md](docs/architecture/deployments-and-demo-links.md)) để phục vụ việc phỏng vấn hoặc nghiệm thu sản phẩm.
+1. **Phân tích (Analysis)**: Gõ `/spec-to-architecture <mô tả bài toán>` để soạn [prd-template.md](docs/requirements/prd-template.md) và [user-stories-template.md](docs/requirements/user-stories-template.md).
+2. **Thiết kế (Design)**: Tiếp tục với `/spec-to-architecture` để hoàn thiện [system-architecture.md](docs/architecture/system-architecture.md), [database-design.md](docs/database/database-design.md), [openapi-template.yaml](docs/api-spec/openapi-template.yaml); dùng `/impeccable-ui-workflow` để chốt [DESIGN.md](docs/ui-ux/DESIGN.md).
+3. **Giao việc (Task Planning)**:
+   - Trưởng nhóm tạo thẻ tại **GitHub Issues -> New Issue** với 4 biểu mẫu giao việc (`🚀 Giao việc tính năng`, `🐛 Giao việc sửa lỗi`, `⚙️ Nhiệm vụ kỹ thuật`, `📐 Nghiên cứu kỹ thuật`), hoặc gõ `/issue-driven-dev Tách PRD thành các GitHub Issues`, hoặc điền [task-contract-template.md](docs/task/task-contract-template.md).
+   - Mỗi Issue đóng vai trò là **Implementation Plan** khóa chặt ngữ cảnh (`References`), phạm vi (`Scope & Boundaries`), tiêu chí nghiệm thu (`Acceptance Criteria`) và lệnh kiểm tra (`Verification Commands`).
+4. **Lập trình (Coding)**: Gõ `/issue-driven-dev Đọc và thực hiện Issue #N` (kết hợp `/impeccable-ui-workflow` khi dựng giao diện). AI tự chạy `gh issue view N`, tra cứu `.codegraph` trước khi sửa file và viết kèm bài kiểm thử.
+5. **Kiểm chứng & Nghiệm thu (Testing & DoD)**:
+   - Gõ `/verify-dod-and-pr` (hoặc AI tự chuyển tiếp sau khi code xong): AI đối chiếu `git diff` đảm bảo comment tiếng Việt không có `()` và không có icon, chạy thực tế linter, typecheck, test suite và xuất bảng báo cáo `PASS` / `FAIL` / `NOT RUN` theo [definition-of-done.md](docs/standards/definition-of-done.md).
+6. **Review & Triển khai (PR & Deploy)**:
+   - Bạn kiểm tra diff, chạy lệnh `git commit` theo gợi ý của AI và mở PR theo [pull_request_template.md](.github/pull_request_template.md) kèm `Closes #<số_issue>` để tự động đóng Issue khi merge.
+   - CI tại [ci.yml](.github/workflows/ci.yml) quét Gitleaks + chạy test; gắn link demo Vercel/Render lên GitHub **Deployments** theo [deployments-and-demo-links.md](docs/architecture/deployments-and-demo-links.md).
 
 ---
 
-## 4. Bảng Tra Cứu Nhanh Thư Mục Dự Án
+## 6. Bảng Tra Cứu Nhanh Cấu Trúc Kho Mã Nguồn
 
-| Thư mục / File | Mục đích sử dụng |
+| Thư mục / Tệp | Mục đích sử dụng |
 | :--- | :--- |
-| [`.agents/`](.agents/) | Chứa các quy tắc cốt lõi (`rules/`) và 6 hồ sơ chuyên môn của AI Subagents (`agents/`). |
-| [`.codegraph/`](.codegraph/) | Chỉ mục đồ thị quan hệ mã nguồn giúp AI tra cứu cấu trúc chính xác. |
-| [`.github/`](.github/) | Issue templates giao việc, Pull Request template và CI/CD workflows. |
-| [`docs/product/`](docs/product/) | Tầm nhìn sản phẩm, MVP scope và lộ trình phát triển. |
-| [`docs/requirements/`](docs/requirements/) | PRD và danh mục User Stories. |
-| [`docs/techs/`](docs/techs/) | Khảo sát và ma trận chốt công nghệ do người dùng quyết định. |
-| [`docs/architecture/`](docs/architecture/) | Tài liệu kiến trúc, ma trận phân quyền RBAC và hướng dẫn Deployments demo. |
-| [`docs/database/`](docs/database/) | Thiết kế cơ sở dữ liệu, từ điển dữ liệu và migration template. |
-| [`docs/api-spec/`](docs/api-spec/) | Đặc tả API chuẩn OpenAPI 3.1. |
-| [`docs/ui-ux/`](docs/ui-ux/) | Bản sắc thiết kế UI/UX độc bản theo chuẩn Impeccable (`DESIGN.md`) và Design Tokens. |
+| [`.agents/rules/`](.agents/rules/) | Luật hành vi và chống ảo giác luôn bật (`always_on`). |
+| [`.agents/agents/`](.agents/agents/) | 6 hồ sơ Custom Subagents chuyên trách cho Antigravity. |
+| [`.agents/skills/`](.agents/skills/) | 5 quy trình thực thi cốt lõi hỗ trợ gọi qua `/<tên-skill>`. |
+| [`.codegraph/`](.codegraph/) | Cấu hình và hướng dẫn tra cứu đồ thị mã nguồn CodeGraph. |
+| [`.github/`](.github/) | 4 biểu mẫu Issue giao việc, PR template, workflow CI & Deployments. |
+| [`docs/product/`](docs/product/) & [`docs/requirements/`](docs/requirements/) | Tầm nhìn sản phẩm, lộ trình MVP, PRD và User Stories chuẩn Gherkin. |
+| [`docs/techs/`](docs/techs/) | Bảng khảo sát và ma trận chốt quyết định công nghệ. |
+| [`docs/architecture/`](docs/architecture/) & [`docs/diagrams/`](docs/diagrams/) | Kiến trúc hệ thống, RBAC, NFR, hướng dẫn link demo và sơ đồ Mermaid. |
+| [`docs/database/`](docs/database/) & [`docs/api-spec/`](docs/api-spec/) | Thiết kế CSDL, SQL schema mẫu và đặc tả OpenAPI 3.1. |
+| [`docs/ui-ux/`](docs/ui-ux/) | Đặc tả thương hiệu `DESIGN.md`, Design Tokens và chuẩn Impeccable UI/UX. |
 | [`docs/task/`](docs/task/) | Khế ước tác vụ (`task-contract-template.md`), WBS và Sprint Backlog. |
-| [`docs/standards/`](docs/standards/) | Tiêu chuẩn coding, checklist bảo mật OWASP, QA Strategy, DoD và quy chuẩn commit. |
+| [`docs/standards/`](docs/standards/) | Coding Standards, Security Checklist, QA Strategy, DoD và Git Commit. |
+| [`docs/ai-integration/`](docs/ai-integration/) | Kiến trúc tích hợp LLM trong sản phẩm (Model Router, Fallback, Prompt Injection Defense). |
 | [`docs/dev-logs/`](docs/dev-logs/) | Nhật ký phát triển hàng ngày và hồ sơ quyết định kiến trúc (`adr/`). |
-| [`scripts/`](scripts/) | Kịch bản tự động hóa khởi tạo repo mới trên GitHub. |
-| [`AGENTS.md`](AGENTS.md) | "Hiến pháp" vận hành bắt buộc dành cho mọi AI Agent. |
+| [`scripts/`](scripts/) | Kịch bản khởi tạo repository GitHub mới (`init-repo.ps1`, `init-repo.sh`). |
+| [`AGENTS.md`](AGENTS.md) | Hiến pháp vận hành trung tâm dành cho mọi AI Agent. |

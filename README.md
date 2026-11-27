@@ -18,9 +18,10 @@ Bộ template chuẩn mực dành cho Tech Lead, Kỹ sư phần mềm và AI Ag
 ## 2. Cấu Trúc Kho Lưu Trữ
 
 ```text
-├── .agents/                 # Quy chuẩn hành vi & hồ sơ custom agents Antigravity
-│   ├── rules/               # Luật vận hành nội bộ của agent (always_on)
-│   └── agents/              # Vai trò: architect, developer, qa-tester, devops, security-reviewer, ui-ux-designer
+├── .agents/                 # Hệ thống tùy biến AI Agent chuẩn Antigravity & Claude
+│   ├── rules/               # Luật vận hành cốt lõi luôn bật (always_on)
+│   ├── agents/              # 6 vai trò: architect, developer, qa-tester, devops, security-reviewer, ui-ux-designer
+│   └── skills/              # 5 quy trình cốt lõi: project-bootstrap, spec-to-architecture, issue-driven-dev, impeccable-ui-workflow, verify-dod-and-pr
 ├── .codegraph/              # Cấu hình và hướng dẫn index CodeGraph
 ├── .github/                 # GitHub workflows & templates
 │   ├── ISSUE_TEMPLATE/      # Phiếu giao việc từ Lead: Feature, Bug Fix, Technical Task, Spike
@@ -38,7 +39,6 @@ Bộ template chuẩn mực dành cho Tech Lead, Kỹ sư phần mềm và AI Ag
 │   ├── task/                # Phân rã WBS, Task Contract, Sprint Backlog & Checklist
 │   ├── standards/           # Quy chuẩn Clean Code, Security, QA Strategy, Git Commit
 │   ├── ai-integration/      # Kiến trúc tích hợp LLM, Model Router, Fallback
-│   ├── prompts/             # Danh mục prompt chuẩn cho từng vai trò
 │   └── dev-logs/            # Nhật ký phát triển hàng ngày & ADR
 ├── scripts/                 # Kịch bản tự động hóa khởi tạo repo (PowerShell & Bash)
 ├── .editorconfig            # Quy chuẩn định dạng mã nguồn nhất quán cho mọi IDE
@@ -78,6 +78,14 @@ Mở và điền vào bảng khảo sát tại [docs/techs/decision-checklist.md
 - Hệ quản trị CSDL & Caching
 - Bảng màu & Design System Tokens tại [docs/ui-ux/design-tokens-template.md](docs/ui-ux/design-tokens-template.md)
 
-### Bước 3: Giao Tác Vụ Cho AI Agent
+### Bước 3: Giao Tác Vụ Cho AI Agent Bằng Slash Commands
 
-Kêu gọi AI Agent thực thi từng bước dựa theo [AGENTS.md](AGENTS.md) và các prompt mẫu tại [docs/prompts/system-prompts.md](docs/prompts/system-prompts.md).
+Trong Antigravity + Gemini, các quy trình tại [.agents/skills/](.agents/skills/) hỗ trợ gọi trực tiếp bằng dấu `/` trong ô chat (hoặc tự động kích hoạt khi bạn nhắn bằng ngôn ngữ tự nhiên):
+
+- `/project-bootstrap`: Khảo sát quy mô dự án & chốt Tech Stack Day 0.
+- `/spec-to-architecture`: Viết PRD, User Stories Gherkin, thiết kế DB Schema, OpenAPI & ADR.
+- `/issue-driven-dev`: Tạo hoặc thực thi GitHub Issue (`gh issue view`) kèm kiểm thử.
+- `/impeccable-ui-workflow`: Thiết kế & kiểm toán UI độc bản chuẩn Impeccable (WCAG 2.1 AA).
+- `/verify-dod-and-pr`: Quét quy chuẩn comment tiếng Việt, kiểm chứng DoD và gợi ý commit/PR.
+
+Xem hướng dẫn chi tiết từng bước tại [HUONG-DAN-SU-DUNG.md](HUONG-DAN-SU-DUNG.md) và [AGENTS.md](AGENTS.md).

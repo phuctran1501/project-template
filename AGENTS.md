@@ -43,7 +43,7 @@ Tài liệu này là "Hiến pháp" vận hành dành cho AI Agents (Antigravity
 
 | Thư mục                | Mục đích sử dụng cho AI Agent                                                                                                                     |
 | :--------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `.agents/`             | Chứa rules (`rules/`) và định nghĩa vai trò Custom Agents (`agents/`: `architect`, `developer`, `qa-tester`, `devops`, `security-reviewer`, `ui-ux-designer`). |
+| `.agents/`             | Chứa luật cốt lõi (`rules/`), 6 vai trò Custom Agents (`agents/`) và 5 quy trình thực thi Skills (`skills/`). |
 | `.codegraph/`          | Chỉ mục đồ thị mã nguồn hỗ trợ phân tích phụ thuộc chính xác.                                                                                     |
 | `.github/`             | Quản lý quy chuẩn đóng góp mã (Issue Templates, PR Template, CI/CD Actions, Deployments).                                                         |
 | `docs/product/`        | Tầm nhìn, MVP scope, chỉ số KPI/OKR của sản phẩm.                                                                                                 |
@@ -57,22 +57,29 @@ Tài liệu này là "Hiến pháp" vận hành dành cho AI Agents (Antigravity
 | `docs/task/`           | Danh sách WBS, Task Contract, Sprint Backlog và Task Tracker.                                                                                     |
 | `docs/standards/`      | Quy chuẩn code sạch, bảo mật OWASP, DoD, chiến lược kiểm thử QA, Git commit templates.                                                            |
 | `docs/ai-integration/` | Cấu hình LLM Harness, định tuyến Model Router (Gemini/Claude), xử lý fallback & rate limit.                                                       |
-| `docs/prompts/`        | Thư viện prompt chuẩn cho từng tác vụ và prompt bàn giao giữa các agent.                                                                          |
 | `docs/dev-logs/`       | Nhật ký dev hàng ngày và hồ sơ quyết định kiến trúc (ADR).                                                                                        |
 | `scripts/`             | Kịch bản tự động hóa (khởi tạo repo GitHub CLI, setup môi trường).                                                                                |
 
 ---
 
-## 3. Phân Công Vai Trò Sub-Agents (Agent Delegation)
+## 3. Phân Công Sub-Agents & Quy Trình Skills
 
-Khi tác vụ phức tạp, chia nhỏ và phân quyền theo các hồ sơ tại `.agents/agents/`:
+### 3.1. Vai Trò Custom Sub-Agents (`.agents/agents/`)
+Khi tác vụ phức tạp, chia nhỏ và ủy quyền qua `invoke_subagent` theo các hồ sơ:
+1. **Architect Agent** ([.agents/agents/architect.md](.agents/agents/architect.md)): Phân tích yêu cầu, thiết kế kiến trúc, mô hình CSDL và API contract.
+2. **Developer Agent** ([.agents/agents/developer.md](.agents/agents/developer.md)): Viết mã nguồn nghiệp vụ, bám sát coding standards, xử lý lỗi chi tiết.
+3. **Tester Agent** ([.agents/agents/qa-tester.md](.agents/agents/qa-tester.md)): Viết test cases, kiểm tra coverage, tìm edge cases và kiểm thử hồi quy.
+4. **DevOps Agent** ([.agents/agents/devops.md](.agents/agents/devops.md)): Xây dựng CI/CD pipeline, container hóa (Docker), thiết lập biến môi trường và script deploy.
+5. **Reviewer Agent** ([.agents/agents/security-reviewer.md](.agents/agents/security-reviewer.md)): Rà soát code độc lập, kiểm tra lỗ hổng bảo mật OWASP, đối chiếu PR checklist.
+6. **UI/UX Designer Agent** ([.agents/agents/ui-ux-designer.md](.agents/agents/ui-ux-designer.md)): Thiết kế giao diện độc bản, tinh chỉnh micro-interactions và audit theo chuẩn Impeccable (`pbakaus/impeccable`).
 
-1. **Architect Agent** (`.agents/agents/architect.md`): Chịu trách nhiệm phân tích yêu cầu, thiết kế kiến trúc, mô hình CSDL và API contract.
-2. **Developer Agent** (`.agents/agents/developer.md`): Viết mã nguồn nghiệp vụ, bám sát coding standards, xử lý lỗi chi tiết.
-3. **Tester Agent** (`.agents/agents/qa-tester.md`): Viết test cases, kiểm tra coverage, tìm edge cases và bảo mật.
-4. **DevOps Agent** (`.agents/agents/devops.md`): Xây dựng CI/CD pipeline, container hóa (Docker), thiết lập biến môi trường và script deploy.
-5. **Reviewer Agent** (`.agents/agents/security-reviewer.md`): Rà soát code, kiểm tra lỗ hổng bảo mật, verify PR checklist.
-6. **UI/UX Designer Agent** (`.agents/agents/ui-ux-designer.md`): Thiết kế giao diện độc bản, tinh chỉnh micro-interactions và audit trải nghiệm theo chuẩn Impeccable (`pbakaus/impeccable`).
+### 3.2. Bộ 5 Skills Cốt Lõi Theo Giai Đoạn (`.agents/skills/`)
+Người dùng có thể gọi trực tiếp bằng lệnh `/<tên-skill>` trên ô chat, hoặc Agent tự động kích hoạt `SKILL.md` tương ứng theo ngữ cảnh nhiệm vụ (Progressive Disclosure):
+1. **`/project-bootstrap`** ([.agents/skills/project-bootstrap/SKILL.md](.agents/skills/project-bootstrap/SKILL.md)): Khảo sát quy mô dự án & Tech Stack Day 0, cập nhật `decision-checklist.md`, `DESIGN.md` và cấu hình CI/CD.
+2. **`/spec-to-architecture`** ([.agents/skills/spec-to-architecture/SKILL.md](.agents/skills/spec-to-architecture/SKILL.md)): Chuyển hóa ý tưởng thành PRD, User Stories Gherkin, sơ đồ kiến trúc, DB Schema, OpenAPI và ADR.
+3. **`/issue-driven-dev`** ([.agents/skills/issue-driven-dev/SKILL.md](.agents/skills/issue-driven-dev/SKILL.md)): Tạo hoặc đọc GitHub Issues (`gh issue view`), khóa phạm vi Task Contract, tra cứu `.codegraph` và lập trình kèm test.
+4. **`/impeccable-ui-workflow`** ([.agents/skills/impeccable-ui-workflow/SKILL.md](.agents/skills/impeccable-ui-workflow/SKILL.md)): Thực thi quy trình `craft -> audit -> polish -> harden` cho giao diện chống AI tells, đạt chuẩn WCAG 2.1 AA.
+5. **`/verify-dod-and-pr`** ([.agents/skills/verify-dod-and-pr/SKILL.md](.agents/skills/verify-dod-and-pr/SKILL.md)): Kiểm tra quy chuẩn chú thích trên `git diff`, chạy build/lint/test lấy bằng chứng thực tế và gợi ý lệnh Git commit / PR.
 
 ---
 
